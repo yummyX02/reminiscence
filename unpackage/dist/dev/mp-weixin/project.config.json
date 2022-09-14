@@ -4,12 +4,11 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false,
-    "postcss": false
+    "urlCheck": false
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wx6c191a417dd24a7e",
+  "appid": "touristappid",
   "projectname": "22-shiyi_hua5",
   "condition": {
     "search": {
