@@ -1,0 +1,9 @@
+.big.data-v-b237504c {
+  height: 100vh;
+  background-color: wheat;
+}
+.title.data-v-b237504c {
+  font-weight: bolder;
+  font-size: larger;
+}
+
