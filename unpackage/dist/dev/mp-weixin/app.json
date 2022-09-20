@@ -11,6 +11,7 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
+<<<<<<< HEAD
   "tabBar": {
     "selectedColor": "white",
     "list": [
@@ -25,5 +26,7 @@
       }
     ]
   },
+=======
+>>>>>>> ec6017e (master分支commit)
   "usingComponents": {}
 }

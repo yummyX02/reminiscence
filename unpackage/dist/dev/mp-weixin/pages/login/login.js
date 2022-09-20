@@ -1,5 +1,6 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/login/login"],{
 
+<<<<<<< HEAD
 /***/ 18:
 /*!***************************************************************************************!*\
   !*** D:/Desktop/2022-shiyi_hua5/pages/login/login.vue?vue&type=template&id=b237504c& ***!
@@ -49,6 +50,8 @@ render._withStripped = true
 
 /***/ }),
 
+=======
+>>>>>>> ec6017e (master分支commit)
 /***/ 20:
 /*!***************************************************************************!*\
   !*** D:/Desktop/2022-shiyi_hua5/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
@@ -72,6 +75,7 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_login.def
   !*** D:/Desktop/2022-shiyi_hua5/pages/login/login.vue ***!
   \********************************************************/
 /*! no static exports found */
+<<<<<<< HEAD
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -143,6 +147,11 @@ var _default =
 
 
   } };exports.default = _default;
+=======
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js):\nError: ENOENT: no such file or directory, open 'D:\\Desktop\\2022-shiyi_hua5\\pages\\login\\login.vue'");
+>>>>>>> ec6017e (master分支commit)
 
 /***/ })
 
