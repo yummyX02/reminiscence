@@ -29,19 +29,19 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "tabBar": {
-    "selectedColor":"white",
-    "list": [
-      {
-        "text": "登录",
-        "iconPath": "static/logo.png",
-        "pagePath": "pages/login/login"
-      },
-      {
-        "text": "模式选择",
-        "pagePath": "pages/modelSelect/modelSelect"
-      }
-    ]
-  },
+  // "tabBar": {
+  //   "selectedColor":"white",
+  //   "list": [
+  //     {
+  //       "text": "登录",
+  //       "iconPath": "static/logo.png",
+  //       "pagePath": "pages/login/login"
+  //     },
+  //     {
+  //       "text": "模式选择",
+  //       "pagePath": "pages/modelSelect/modelSelect"
+  //     }
+  //   ]
+  // },
   "uniIdRouter": {}
 }

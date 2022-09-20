@@ -10,7 +10,13 @@ export default {
     return {};
   },
   methods: {},
-  onReady() {},
+  onReady() {
+    setTimeout(() => {
+      uni.reLaunch({
+        url: "/pages/login/login",
+      });
+    }, 3000);
+  },
 };
 </script>
 
