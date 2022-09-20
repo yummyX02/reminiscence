@@ -1,19 +1,28 @@
 <template>
   <view>
-    我是start页面
+    <image class="start" src="/static/start.jpg"></image>
   </view>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        
-      };
-    }
-  }
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+  onReady() {
+    setTimeout(() => {
+      uni.reLaunch({
+        url: "/pages/login/login",
+      });
+    }, 3000);
+  },
+};
 </script>
 
-<style lang="less">
-
+<style scoped>
+.start {
+  height: 100vh;
+  width: 100vw;
+}
 </style>
