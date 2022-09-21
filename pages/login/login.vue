@@ -93,6 +93,11 @@ export default {
             });
           } else {
             console.log("login");
+            setTimeout(() => {
+              uni.reLaunch({
+                url: "/pages/modelSelect/modelSelect",
+              });
+            }, 0);
           }
         }
       }
@@ -111,7 +116,7 @@ export default {
       rgba(171, 211, 218, 0.7),
       rgba(234, 217, 178, 0.7)
     ),
-    url("/static/login.jpg");
+    url("../../static/login.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
   .bigTitle {

@@ -250,6 +250,11 @@ var _default =
 
           } else {
             console.log("login");
+            setTimeout(function () {
+              uni.reLaunch({
+                url: "/pages/modelSelect/modelSelect" });
+
+            }, 0);
           }
         }
       }
