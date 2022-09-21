@@ -10063,7 +10063,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "uniIdRouter": {} };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/old/home/home", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "uniIdRouter": {} };exports.default = _default;
 
 /***/ }),
 /* 46 */

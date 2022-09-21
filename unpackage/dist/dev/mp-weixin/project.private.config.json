@@ -13,6 +13,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "老人主页",
+          "pathName": "pages/old/home/home",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
