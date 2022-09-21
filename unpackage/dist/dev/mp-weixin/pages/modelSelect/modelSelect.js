@@ -23,7 +23,6 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_modelSele
   !*** D:/Desktop/2022-shiyi_hua5/pages/modelSelect/modelSelect.vue ***!
   \********************************************************************/
 /*! no static exports found */
-<<<<<<< HEAD
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -144,11 +143,6 @@ var _default =
 
 
   } };exports.default = _default;
-=======
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js):\nError: ENOENT: no such file or directory, open 'D:\\Desktop\\2022-shiyi_hua5\\pages\\modelSelect\\modelSelect.vue'");
->>>>>>> ec6017e (master分支commit)
 
 /***/ })
 
