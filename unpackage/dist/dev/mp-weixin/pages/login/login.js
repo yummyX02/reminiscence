@@ -98,7 +98,7 @@ var components
 try {
   components = {
     uniDataCheckbox: function() {
-      return Promise.all(/*! import() | uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox.vue */ 34))
+      return Promise.all(/*! import() | uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox.vue */ 36))
     }
   }
 } catch (e) {
@@ -250,6 +250,11 @@ var _default =
 
           } else {
             console.log("login");
+            setTimeout(function () {
+              uni.reLaunch({
+                url: "/pages/modelSelect/modelSelect" });
+
+            }, 0);
           }
         }
       }

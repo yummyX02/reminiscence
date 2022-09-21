@@ -1,6 +1,8 @@
 <template>
   <view>
-    <image class="start" src="/static/start.jpg"></image>
+    <div class="big">
+      <image class="start" src="/static/start.jpg"></image>
+    </div>
   </view>
 </template>
 
@@ -21,8 +23,13 @@ export default {
 </script>
 
 <style scoped>
-.start {
+.big {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+}
+.start {
+  height: 100%;
+  width: 100%;
 }
 </style>
