@@ -1,7 +1,7 @@
 <template>
   <view>
     <div class="big">
-      <image class="start" src="/static/start.jpg"></image>
+      <image class="start" src="../../static/start.jpg"></image>
     </div>
   </view>
 </template>
