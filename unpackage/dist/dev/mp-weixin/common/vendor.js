@@ -2629,6 +2629,25 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ 12:
+/*!*******************************************!*\
+  !*** D:/项目合集/2022-shiyi_hua5/apis/api.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {var _request = __webpack_require__(/*! ../utils/request */ 91);
+
+
+// 封装uni挂载发送的请求
+uni.$http = _request.$http;
+// $http.baseUrl = 'https://mmt.sipcoj.com'
+_request.$http.baseUrl = 'http://43.142.146.75:38080';
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -9997,7 +10016,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "uniIdRouter": {} };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/profile/profile", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/message/message", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/msgDetail/msgDetail", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/addMsg/addMsg", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "uniIdRouter": {} };exports.default = _default;
 
 /***/ }),
 
@@ -10061,6 +10080,87 @@ module.exports = JSON.parse("{\"uni-load-more.contentdown\":\"上拉显示更多
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-load-more.contentdown\":\"上拉顯示更多\",\"uni-load-more.contentrefresh\":\"正在加載...\",\"uni-load-more.contentnomore\":\"沒有更多數據了\"}");
+
+/***/ }),
+
+/***/ 91:
+/*!************************************************!*\
+  !*** D:/项目合集/2022-shiyi_hua5/utils/request.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.$http = void 0;function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var Request = /*#__PURE__*/function () {
+  function Request() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};_classCallCheck(this, Request);
+    // 请求的根路径
+    this.baseUrl = options.baseUrl || '';
+    // 请求的 url 地址
+    this.url = options.url || '';
+    // 请求方式
+    this.method = 'GET';
+    // 请求的参数对象
+    this.data = null;
+    // header 请求头
+    this.header = options.header || {};
+    this.beforeRequest = null;
+    this.afterRequest = null;
+  }_createClass(Request, [{ key: "get", value: function get(
+
+    url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.method = 'GET';
+      this.url = this.baseUrl + url;
+      this.data = data;
+      return this._();
+    } }, { key: "post", value: function post(
+
+    url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.method = 'POST';
+      this.url = this.baseUrl + url;
+      this.data = data;
+      return this._();
+    } }, { key: "put", value: function put(
+
+    url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.method = 'PUT';
+      this.url = this.baseUrl + url;
+      this.data = data;
+      return this._();
+    } }, { key: "delete", value: function _delete(
+
+    url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.method = 'DELETE';
+      this.url = this.baseUrl + url;
+      this.data = data;
+      return this._();
+    } }, { key: "_", value: function _()
+
+    {var _this = this;
+      // 清空 header 对象
+      this.header = {};
+      // 请求之前做一些事
+      this.beforeRequest && typeof this.beforeRequest === 'function' && this.beforeRequest(this);
+      // 发起请求
+      return new Promise(function (resolve, reject) {
+        uni.request({
+          url: _this.url,
+          method: _this.method,
+          data: _this.data,
+          header: _this.header,
+          success: function success(res) {
+            console.log(res);
+          },
+          fail: function fail(err) {reject(err);},
+          complete: function complete(res) {
+            _this.afterRequest && typeof _this.afterRequest === 'function' && _this.afterRequest(res);
+          } });
+
+      });
+    } }]);return Request;}();
+
+
+var $http = new Request();exports.$http = $http;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 
