@@ -3,7 +3,11 @@
     "pages/start/start",
     "pages/login/login",
     "pages/modelSelect/modelSelect",
-    "pages/old/home/home"
+    "pages/old/home/home",
+    "pages/son/profile/profile",
+    "pages/son/message/message",
+    "pages/son/msgDetail/msgDetail",
+    "pages/son/addMsg/addMsg"
   ],
   "subPackages": [],
   "window": {

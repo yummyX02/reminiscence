@@ -15,8 +15,13 @@
           "scene": null
         },
         {
+<<<<<<< HEAD
           "name": "老人主页",
           "pathName": "pages/old/home/home",
+=======
+          "name": "",
+          "pathName": "pages/son/profile/profile",
+>>>>>>> 35ba5ff8ff16f9e4fe5c80cde0b4a41984de0b53
           "query": "",
           "launchMode": "default",
           "scene": null
