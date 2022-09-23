@@ -22,6 +22,7 @@
     "minifyWXSS": true,
     "useStaticServer": true,
     "showES6CompileOption": false,
+    "compileHotReLoad": true,
     "checkInvalidKey": true,
     "babelSetting": {
       "ignore": [],
@@ -35,24 +36,7 @@
   "libVersion": "2.26.0",
   "appid": "wxd63ea02596dbe989",
   "projectname": "22-shiyi_hua5",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

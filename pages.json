@@ -23,6 +23,15 @@
 
     }
       ,{
+            "path" : "pages/old/home/home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+      ,{
             "path" : "pages/son/profile/profile",
             "style" :                                                                                    
             {
