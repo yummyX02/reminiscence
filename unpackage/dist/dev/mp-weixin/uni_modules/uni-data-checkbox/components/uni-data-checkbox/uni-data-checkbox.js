@@ -523,11 +523,13 @@ __webpack_require__.r(__webpack_exports__);
     setStyleBackgroud: function setStyleBackgroud(item) {
       var styles = {};
       var selectedColor = this.selectedColor ? this.selectedColor : '#2979ff';
-      if (this.mode !== 'list') {
-        styles['border-color'] = item.selected ? selectedColor : '#DCDFE6';
-      }
-      if (this.mode === 'tag') {
-        styles['background-color'] = item.selected ? selectedColor : '#f5f5f5';
+      if (this.selectedColor) {
+        if (this.mode !== 'list') {
+          styles['border-color'] = item.selected ? selectedColor : '#DCDFE6';
+        }
+        if (this.mode === 'tag') {
+          styles['background-color'] = item.selected ? selectedColor : '#f5f5f5';
+        }
       }
       var classles = '';
       for (var i in styles) {
@@ -538,15 +540,16 @@ __webpack_require__.r(__webpack_exports__);
     setStyleIcon: function setStyleIcon(item) {
       var styles = {};
       var classles = '';
-      var selectedColor = this.selectedColor ? this.selectedColor : '#2979ff';
-      styles['background-color'] = item.selected ? selectedColor : '#fff';
-      styles['border-color'] = item.selected ? selectedColor : '#DCDFE6';
-
-      if (!item.selected && item.disabled) {
-        styles['background-color'] = '#F2F6FC';
+      if (this.selectedColor) {
+        var selectedColor = this.selectedColor ? this.selectedColor : '#2979ff';
+        styles['background-color'] = item.selected ? selectedColor : '#fff';
         styles['border-color'] = item.selected ? selectedColor : '#DCDFE6';
-      }
 
+        if (!item.selected && item.disabled) {
+          styles['background-color'] = '#F2F6FC';
+          styles['border-color'] = item.selected ? selectedColor : '#DCDFE6';
+        }
+      }
       for (var i in styles) {
         classles += "".concat(i, ":").concat(styles[i], ";");
       }
@@ -555,16 +558,17 @@ __webpack_require__.r(__webpack_exports__);
     setStyleIconText: function setStyleIconText(item) {
       var styles = {};
       var classles = '';
-      var selectedColor = this.selectedColor ? this.selectedColor : '#2979ff';
-      if (this.mode === 'tag') {
-        styles.color = item.selected ? this.selectedTextColor ? this.selectedTextColor : '#fff' : '#666';
-      } else {
-        styles.color = item.selected ? this.selectedTextColor ? this.selectedTextColor : selectedColor : '#666';
+      if (this.selectedColor) {
+        var selectedColor = this.selectedColor ? this.selectedColor : '#2979ff';
+        if (this.mode === 'tag') {
+          styles.color = item.selected ? this.selectedTextColor ? this.selectedTextColor : '#fff' : '#666';
+        } else {
+          styles.color = item.selected ? this.selectedTextColor ? this.selectedTextColor : selectedColor : '#666';
+        }
+        if (!item.selected && item.disabled) {
+          styles.color = '#999';
+        }
       }
-      if (!item.selected && item.disabled) {
-        styles.color = '#999';
-      }
-
       for (var i in styles) {
         classles += "".concat(i, ":").concat(styles[i], ";");
       }

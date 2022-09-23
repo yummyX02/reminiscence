@@ -3,13 +3,13 @@
     <div class="big">
       <div class="title">选择模式</div>
       <div class="model">
-        <div class="young">
+        <div class="young" @click="youngModel">
           <div class="youngIn">
             <div class="topTitle">子女模式</div>
             <div class="bottomTitle">帮助长辈添加注意事项</div>
           </div>
         </div>
-        <div class="old">
+        <div class="old" @click="oldModel">
           <div class="oldIn">
             <div class="topTitle">老人模式</div>
             <div class="bottomTitle">提醒待做事项</div>
@@ -39,6 +39,19 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    youngModel() {
+      console.log("youngModel");
+    },
+    oldModel() {
+      console.log("oldModel");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/old/home/home",
+        });
+      }, 0);
+    },
   },
 };
 </script>
