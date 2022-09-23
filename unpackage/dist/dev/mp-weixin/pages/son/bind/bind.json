@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "绑定",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-data-pickerview": "/uni_modules/uni-data-picker/components/uni-data-pickerview/uni-data-pickerview"
+  }
+}

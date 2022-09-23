@@ -8,10 +8,10 @@
     "urlCheck": false,
     "postcss": false,
     "coverView": true,
-    "es6": true,
+    "es6": false,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,
-    "minified": true,
+    "minified": false,
     "autoAudits": false,
     "uglifyFileName": false,
     "uploadWithSourceMap": true,
@@ -32,7 +32,7 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.26.1",
+  "libVersion": "2.26.0",
   "appid": "wxd63ea02596dbe989",
   "projectname": "22-shiyi_hua5",
   "condition": {

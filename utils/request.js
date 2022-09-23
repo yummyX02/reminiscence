@@ -55,7 +55,8 @@ class Request {
         data: this.data,
         header: this.header,
         success: (res) => {
-          console.log(res);
+          // console.log(res);
+          resolve(res)
         },
         fail: (err) => { reject(err) },
         complete: (res) => {

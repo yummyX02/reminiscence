@@ -44,7 +44,7 @@
             "path" : "pages/son/msgDetail/msgDetail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "详情",
                 "enablePullDownRefresh": false
             }
             
@@ -53,7 +53,34 @@
             "path" : "pages/son/addMsg/addMsg",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "新建发件",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/son/selectPkg/selectPkg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "语音包",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/son/addDay/addDay",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "纪念日",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/son/bind/bind",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定",
                 "enablePullDownRefresh": false
             }
             
@@ -61,23 +88,32 @@
     ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "拾忆",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  // "tabBar": {
-  //   "selectedColor":"white",
-  //   "list": [
-  //     {
-  //       "text": "登录",
-  //       "iconPath": "static/logo.png",
-  //       "pagePath": "pages/login/login"
-  //     },
-  //     {
-  //       "text": "模式选择",
-  //       "pagePath": "pages/modelSelect/modelSelect"
-  //     }
-  //   ]
-  // },
+  "tabBar": {
+    "selectedColor":"white",
+    "list": [
+      {
+        "text": "发件箱",
+        "iconPath": "static/fajian-2.png",
+        "pagePath": "pages/son/message/message",
+        "selectedIconPath": "static/fajian-2.png"
+      },
+      {
+        "text": "选择语音包",
+        "pagePath": "pages/son/selectPkg/selectPkg",
+        "iconPath": "static/yuyin.png",
+        "selectedIconPath": "static/yuyin.png"
+      },
+      {
+        "text": "主页",
+        "pagePath": "pages/son/profile/profile",
+        "iconPath": "static/wode.png",
+        "selectedIconPath": "static/wode.png"
+      }
+    ]
+  },
   "uniIdRouter": {}
 }

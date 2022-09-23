@@ -16,7 +16,56 @@
         },
         {
           "name": "",
+          "pathName": "pages/login/login",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "缓冲页",
+          "pathName": "pages/start/start",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "消息页",
+          "pathName": "pages/son/message/message",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "新建发件页",
+          "pathName": "pages/son/addMsg/addMsg",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "选择语音包",
+          "pathName": "pages/son/selectPkg/selectPkg",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "主页",
           "pathName": "pages/son/profile/profile",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "添加纪念日",
+          "pathName": "pages/son/addDay/addDay",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "绑定关系",
+          "pathName": "pages/son/bind/bind",
           "query": "",
           "launchMode": "default",
           "scene": null
