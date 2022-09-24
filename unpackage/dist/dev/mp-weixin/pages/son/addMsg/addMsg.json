@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "新建发件",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card",
-    "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons"
-  }
-}
