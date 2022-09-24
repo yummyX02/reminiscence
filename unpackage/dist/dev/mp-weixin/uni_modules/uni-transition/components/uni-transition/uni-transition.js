@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Component({})
-=======
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["uni_modules/uni-transition/components/uni-transition/uni-transition"],{
 
 /***/ 224:
@@ -401,4 +398,3 @@ var _createAnimation = __webpack_require__(/*! ./createAnimation */ 229);functio
     },
     [['uni_modules/uni-transition/components/uni-transition/uni-transition-create-component']]
 ]);
->>>>>>> luxiaoyu

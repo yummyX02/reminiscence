@@ -218,7 +218,11 @@ var _default =
       }, 0);
     },
     memo: function memo() {
-      console.log("memo");
+      setTimeout(function () {
+        uni.reLaunch({
+          url: "/pages/old/memo/memo" });
+
+      }, 0);
     },
     bind: function bind() {
       console.log("bind");

@@ -11,7 +11,8 @@
     "pages/son/selectPkg/selectPkg",
     "pages/son/addDay/addDay",
     "pages/son/bind/bind",
-    "pages/old/inbox/inbox"
+    "pages/old/inbox/inbox",
+    "pages/old/memo/memo"
   ],
   "subPackages": [],
   "window": {

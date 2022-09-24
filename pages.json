@@ -103,6 +103,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/old/memo/memo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "备忘录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
   "globalStyle": {
     "navigationBarTextStyle": "black",

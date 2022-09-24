@@ -4,7 +4,7 @@
     "miniprogram": {
       "list": [
         {
-          "name": "son/message",
+          "name": "子女主页",
           "pathName": "pages/son/message/message",
           "query": "",
           "launchMode": "default",
@@ -16,8 +16,32 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "老人收件箱",
+          "pathName": "pages/old/inbox/inbox",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "老人主页",
+          "pathName": "pages/old/home/home",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "备忘录",
+          "pathName": "pages/old/memo/memo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
+  },
+  "setting": {
+    "compileHotReLoad": true
   }
 }
