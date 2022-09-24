@@ -67,7 +67,39 @@ export default {
           duration: 3000,
         });
       } else {
-        console.log("truenum");
+        const data = { phone: this.phone };
+        uni.$http
+          .post("/login/phone-get-sms", data)
+          .then((res) => {
+            if (res.statusCode == 200) {
+              if (res.data.code == "00000") {
+                uni.showToast({
+                  title: "验证码已发送",
+                  icon: "none",
+                  duration: 3000,
+                });
+              } else {
+                uni.showToast({
+                  title: "获取验证码失败",
+                  icon: "error",
+                  duration: 3000,
+                });
+              }
+            } else {
+              uni.showToast({
+                title: "获取验证码失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            uni.showToast({
+              title: "获取验证码失败",
+              icon: "error",
+              duration: 3000,
+            });
+          });
       }
     },
     login() {
@@ -92,12 +124,45 @@ export default {
               duration: 3000,
             });
           } else {
-            console.log("login");
-            setTimeout(() => {
-              uni.reLaunch({
-                url: "/pages/modelSelect/modelSelect",
+            const data = {
+              phone: this.phone,
+              verificationCode: this.checkMa,
+            };
+            uni.$http
+              .post("/login/phone-verification-sms", data)
+              .then((res) => {
+                console.log(res);
+                if (res.statusCode == 200) {
+                  if (res.data.code == "00000") {
+                    uni.setStorageSync("userId", res.data.data.userId);
+                    uni.setStorageSync("token", res.data.data.token);
+                    setTimeout(() => {
+                      uni.reLaunch({
+                        url: "/pages/modelSelect/modelSelect",
+                      });
+                    }, 0);
+                  } else {
+                    uni.showToast({
+                      title: res.data.message,
+                      icon: "none",
+                      duration: 3000,
+                    });
+                  }
+                } else {
+                  uni.showToast({
+                    title: "登录失败",
+                    icon: "error",
+                    duration: 3000,
+                  });
+                }
+              })
+              .catch((err) => {
+                uni.showToast({
+                  title: "登录失败",
+                  icon: "error",
+                  duration: 3000,
+                });
               });
-            }, 0);
           }
         }
       }
@@ -111,7 +176,6 @@ export default {
   overflow: hidden;
   position: relative;
   height: 100vh;
-  // background-color: wheat;
   background-image: linear-gradient(
       rgba(171, 211, 218, 0.7),
       rgba(234, 217, 178, 0.7)

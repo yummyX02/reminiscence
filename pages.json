@@ -94,6 +94,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/old/inbox/inbox",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "收件箱",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
   "globalStyle": {
     "navigationBarTextStyle": "black",

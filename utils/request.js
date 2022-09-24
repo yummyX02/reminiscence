@@ -65,6 +65,6 @@ class Request {
       })
     })
   }
-}	
+}
 
 export const $http = new Request()
