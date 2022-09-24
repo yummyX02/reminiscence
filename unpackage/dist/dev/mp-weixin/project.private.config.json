@@ -13,13 +13,67 @@
         {
           "name": "老人主页",
           "pathName": "pages/old/home/home",
+<<<<<<< HEAD
+=======
+=======
+          "name": "",
+          "pathName": "pages/login/login",
+>>>>>>> 9cf2216bc9a46a1f55abfda6e7fd609e6f519f70
           "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
+<<<<<<< HEAD
           "name": "收件箱",
           "pathName": "pages/old/inbox/inbox",
+=======
+          "name": "缓冲页",
+          "pathName": "pages/start/start",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "消息页",
+          "pathName": "pages/son/message/message",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "新建发件页",
+          "pathName": "pages/son/addMsg/addMsg",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "选择语音包",
+          "pathName": "pages/son/selectPkg/selectPkg",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "主页",
+          "pathName": "pages/son/profile/profile",
+>>>>>>> 35ba5ff8ff16f9e4fe5c80cde0b4a41984de0b53
+>>>>>>> 9cf2216bc9a46a1f55abfda6e7fd609e6f519f70
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "添加纪念日",
+          "pathName": "pages/son/addDay/addDay",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "绑定关系",
+          "pathName": "pages/son/bind/bind",
           "query": "",
           "launchMode": "default",
           "scene": null

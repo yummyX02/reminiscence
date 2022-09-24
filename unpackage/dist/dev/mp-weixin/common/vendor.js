@@ -3771,6 +3771,7 @@ module.exports = JSON.parse("{\"uni-load-more.contentdown\":\"上拉顯示更多
           data: _this.data,
           header: _this.header,
           success: function success(res) {
+            // console.log(res);
             resolve(res);
           },
           fail: function fail(err) {reject(err);},
@@ -3784,6 +3785,92 @@ module.exports = JSON.parse("{\"uni-load-more.contentdown\":\"上拉顯示更多
 
 var $http = new Request();exports.$http = $http;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 175:
+/*!**************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-popup/components/uni-popup/popup.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+{
+  data: function data() {
+    return {};
+
+
+  },
+  created: function created() {
+    this.popup = this.getParent();
+  },
+  methods: {
+    /**
+              * 获取父元素实例
+              */
+    getParent: function getParent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'uniPopup';
+      var parent = this.$parent;
+      var parentName = parent.$options.name;
+      while (parentName !== name) {
+        parent = parent.$parent;
+        if (!parent) return false;
+        parentName = parent.$options.name;
+      }
+      return parent;
+    } } };exports.default = _default;
+
+/***/ }),
+
+/***/ 176:
+/*!*******************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-popup/components/uni-popup/i18n/index.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 177));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 178));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 179));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+{
+  en: _en.default,
+  'zh-Hans': _zhHans.default,
+  'zh-Hant': _zhHant.default };exports.default = _default;
+
+/***/ }),
+
+/***/ 177:
+/*!******************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-popup/components/uni-popup/i18n/en.json ***!
+  \******************************************************************************************/
+/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-popup.cancel\":\"cancel\",\"uni-popup.ok\":\"ok\",\"uni-popup.placeholder\":\"pleace enter\",\"uni-popup.title\":\"Hint\",\"uni-popup.shareTitle\":\"Share to\"}");
+
+/***/ }),
+
+/***/ 178:
+/*!***********************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hans.json ***!
+  \***********************************************************************************************/
+/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\"确定\",\"uni-popup.placeholder\":\"请输入\",\"uni-popup.title\":\"提示\",\"uni-popup.shareTitle\":\"分享到\"}");
+
+/***/ }),
+
+/***/ 179:
+/*!***********************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hant.json ***!
+  \***********************************************************************************************/
+/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\"確定\",\"uni-popup.placeholder\":\"請輸入\",\"uni-popup.title\":\"提示\",\"uni-popup.shareTitle\":\"分享到\"}");
 
 /***/ }),
 
@@ -3815,6 +3902,719 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ 201:
+/*!**********************************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.createAnimation = createAnimation;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} // const defaultOption = {
+// 	duration: 300,
+// 	timingFunction: 'linear',
+// 	delay: 0,
+// 	transformOrigin: '50% 50% 0'
+// }
+var
+
+
+MPAnimation = /*#__PURE__*/function () {
+  function MPAnimation(options, _this) {_classCallCheck(this, MPAnimation);
+    this.options = options;
+    this.animation = uni.createAnimation(options);
+    this.currentStepAnimates = {};
+    this.next = 0;
+    this.$ = _this;
+
+  }_createClass(MPAnimation, [{ key: "_nvuePushAnimates", value: function _nvuePushAnimates(
+
+    type, args) {
+      var aniObj = this.currentStepAnimates[this.next];
+      var styles = {};
+      if (!aniObj) {
+        styles = {
+          styles: {},
+          config: {} };
+
+      } else {
+        styles = aniObj;
+      }
+      if (animateTypes1.includes(type)) {
+        if (!styles.styles.transform) {
+          styles.styles.transform = '';
+        }
+        var unit = '';
+        if (type === 'rotate') {
+          unit = 'deg';
+        }
+        styles.styles.transform += "".concat(type, "(").concat(args + unit, ") ");
+      } else {
+        styles.styles[type] = "".concat(args);
+      }
+      this.currentStepAnimates[this.next] = styles;
+    } }, { key: "_animateRun", value: function _animateRun()
+    {var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var ref = this.$.$refs['ani'].ref;
+      if (!ref) return;
+      return new Promise(function (resolve, reject) {
+        nvueAnimation.transition(ref, _objectSpread({
+          styles: styles },
+        config),
+        function (res) {
+          resolve();
+        });
+      });
+    } }, { key: "_nvueNextAnimate", value: function _nvueNextAnimate(
+
+    animates) {var _this2 = this;var step = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;var fn = arguments.length > 2 ? arguments[2] : undefined;
+      var obj = animates[step];
+      if (obj) {var
+
+        styles =
+
+        obj.styles,config = obj.config;
+        this._animateRun(styles, config).then(function () {
+          step += 1;
+          _this2._nvueNextAnimate(animates, step, fn);
+        });
+      } else {
+        this.currentStepAnimates = {};
+        typeof fn === 'function' && fn();
+        this.isEnd = true;
+      }
+    } }, { key: "step", value: function step()
+
+    {var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      this.animation.step(config);
+
+
+
+
+
+
+      return this;
+    } }, { key: "run", value: function run(
+
+    fn) {
+
+      this.$.animationData = this.animation.export();
+      this.$.timer = setTimeout(function () {
+        typeof fn === 'function' && fn();
+      }, this.$.durationTime);
+
+
+
+
+
+
+
+
+    } }]);return MPAnimation;}();
+
+
+
+var animateTypes1 = ['matrix', 'matrix3d', 'rotate', 'rotate3d', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scale3d',
+'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'translate', 'translate3d', 'translateX', 'translateY',
+'translateZ'];
+
+var animateTypes2 = ['opacity', 'backgroundColor'];
+var animateTypes3 = ['width', 'height', 'left', 'right', 'top', 'bottom'];
+animateTypes1.concat(animateTypes2, animateTypes3).forEach(function (type) {
+  MPAnimation.prototype[type] = function () {var _this$animation;
+
+    (_this$animation = this.animation)[type].apply(_this$animation, arguments);
+
+
+
+
+    return this;
+  };
+});
+
+function createAnimation(option, _this) {
+  if (!_this) return;
+  clearTimeout(_this.timer);
+  return new MPAnimation(option, _this);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 255:
+/*!****************************************************************************************************************!*\
+  !*** D:/Desktop/2022-shiyi_hua5/uni_modules/uni-data-picker/components/uni-data-pickerview/uni-data-picker.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uniCloud) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default2 = {
+  props: {
+    localdata: {
+      type: [Array, Object],
+      default: function _default() {
+        return [];
+      } },
+
+    spaceInfo: {
+      type: Object,
+      default: function _default() {
+        return {};
+      } },
+
+    collection: {
+      type: String,
+      default: '' },
+
+    action: {
+      type: String,
+      default: '' },
+
+    field: {
+      type: String,
+      default: '' },
+
+    orderby: {
+      type: String,
+      default: '' },
+
+    where: {
+      type: [String, Object],
+      default: '' },
+
+    pageData: {
+      type: String,
+      default: 'add' },
+
+    pageCurrent: {
+      type: Number,
+      default: 1 },
+
+    pageSize: {
+      type: Number,
+      default: 20 },
+
+    getcount: {
+      type: [Boolean, String],
+      default: false },
+
+    getone: {
+      type: [Boolean, String],
+      default: false },
+
+    gettree: {
+      type: [Boolean, String],
+      default: false },
+
+    manual: {
+      type: Boolean,
+      default: false },
+
+    value: {
+      type: [Array, String, Number],
+      default: function _default() {
+        return [];
+      } },
+
+    modelValue: {
+      type: [Array, String, Number],
+      default: function _default() {
+        return [];
+      } },
+
+    preload: {
+      type: Boolean,
+      default: false },
+
+    stepSearh: {
+      type: Boolean,
+      default: true },
+
+    selfField: {
+      type: String,
+      default: '' },
+
+    parentField: {
+      type: String,
+      default: '' },
+
+    multiple: {
+      type: Boolean,
+      default: false },
+
+    map: {
+      type: Object,
+      default: function _default() {
+        return {
+          text: "text",
+          value: "value" };
+
+      } } },
+
+
+  data: function data() {
+    return {
+      loading: false,
+      errorMessage: '',
+      loadMore: {
+        contentdown: '',
+        contentrefresh: '',
+        contentnomore: '' },
+
+      dataList: [],
+      selected: [],
+      selectedIndex: 0,
+      page: {
+        current: this.pageCurrent,
+        size: this.pageSize,
+        count: 0 } };
+
+
+  },
+  computed: {
+    isLocaldata: function isLocaldata() {
+      return !this.collection.length;
+    },
+    postField: function postField() {
+      var fields = [this.field];
+      if (this.parentField) {
+        fields.push("".concat(this.parentField, " as parent_value"));
+      }
+      return fields.join(',');
+    },
+    dataValue: function dataValue() {
+      var isModelValue = Array.isArray(this.modelValue) ? this.modelValue.length > 0 : this.modelValue !== null || this.modelValue !== undefined;
+      return isModelValue ? this.modelValue : this.value;
+    },
+    hasValue: function hasValue() {
+      if (typeof this.dataValue === 'number') {
+        return true;
+      }
+      return this.dataValue != null && this.dataValue.length > 0;
+    } },
+
+  created: function created() {var _this = this;
+    this.$watch(function () {
+      var al = [];
+      ['pageCurrent',
+      'pageSize',
+      'spaceInfo',
+      'value',
+      'modelValue',
+      'localdata',
+      'collection',
+      'action',
+      'field',
+      'orderby',
+      'where',
+      'getont',
+      'getcount',
+      'gettree'].
+      forEach(function (key) {
+        al.push(_this[key]);
+      });
+      return al;
+    }, function (newValue, oldValue) {
+      var needReset = false;
+      for (var i = 2; i < newValue.length; i++) {
+        if (newValue[i] != oldValue[i]) {
+          needReset = true;
+          break;
+        }
+      }
+      if (newValue[0] != oldValue[0]) {
+        _this.page.current = _this.pageCurrent;
+      }
+      _this.page.size = _this.pageSize;
+
+      _this.onPropsChange();
+    });
+    this._treeData = [];
+  },
+  methods: {
+    onPropsChange: function onPropsChange() {
+      this._treeData = [];
+    },
+    getCommand: function getCommand() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      /* eslint-disable no-undef */
+      var db = uniCloud.database(this.spaceInfo);
+
+      var action = options.action || this.action;
+      if (action) {
+        db = db.action(action);
+      }
+
+      var collection = options.collection || this.collection;
+      db = db.collection(collection);
+
+      var where = options.where || this.where;
+      if (!(!where || !Object.keys(where).length)) {
+        db = db.where(where);
+      }
+
+      var field = options.field || this.field;
+      if (field) {
+        db = db.field(field);
+      }
+
+      var orderby = options.orderby || this.orderby;
+      if (orderby) {
+        db = db.orderBy(orderby);
+      }
+
+      var current = options.pageCurrent !== undefined ? options.pageCurrent : this.page.current;
+      var size = options.pageSize !== undefined ? options.pageSize : this.page.size;
+      var getCount = options.getcount !== undefined ? options.getcount : this.getcount;
+      var getTree = options.gettree !== undefined ? options.gettree : this.gettree;
+
+      var getOptions = {
+        getCount: getCount,
+        getTree: getTree };
+
+      if (options.getTreePath) {
+        getOptions.getTreePath = options.getTreePath;
+      }
+
+      db = db.skip(size * (current - 1)).limit(size).get(getOptions);
+
+      return db;
+    },
+    getNodeData: function getNodeData(callback) {var _this2 = this;
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+      this.getCommand({
+        field: this.postField,
+        where: this._pathWhere() }).
+      then(function (res) {
+        _this2.loading = false;
+        _this2.selected = res.result.data;
+        callback && callback();
+      }).catch(function (err) {
+        _this2.loading = false;
+        _this2.errorMessage = err;
+      });
+    },
+    getTreePath: function getTreePath(callback) {var _this3 = this;
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      this.getCommand({
+        field: this.postField,
+        getTreePath: {
+          startWith: "".concat(this.selfField, "=='").concat(this.dataValue, "'") } }).
+
+      then(function (res) {
+        _this3.loading = false;
+        var treePath = [];
+        _this3._extractTreePath(res.result.data, treePath);
+        _this3.selected = treePath;
+        callback && callback();
+      }).catch(function (err) {
+        _this3.loading = false;
+        _this3.errorMessage = err;
+      });
+    },
+    loadData: function loadData() {var _this4 = this;
+      if (this.isLocaldata) {
+        this._processLocalData();
+        return;
+      }
+
+      if (this.dataValue != null) {
+        this._loadNodeData(function (data) {
+          _this4._treeData = data;
+          _this4._updateBindData();
+          _this4._updateSelected();
+        });
+        return;
+      }
+
+      if (this.stepSearh) {
+        this._loadNodeData(function (data) {
+          _this4._treeData = data;
+          _this4._updateBindData();
+        });
+      } else {
+        this._loadAllData(function (data) {
+          _this4._treeData = [];
+          _this4._extractTree(data, _this4._treeData, null);
+          _this4._updateBindData();
+        });
+      }
+    },
+    _loadAllData: function _loadAllData(callback) {var _this5 = this;
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      this.getCommand({
+        field: this.postField,
+        gettree: true,
+        startwith: "".concat(this.selfField, "=='").concat(this.dataValue, "'") }).
+      then(function (res) {
+        _this5.loading = false;
+        callback(res.result.data);
+        _this5.onDataChange();
+      }).catch(function (err) {
+        _this5.loading = false;
+        _this5.errorMessage = err;
+      });
+    },
+    _loadNodeData: function _loadNodeData(callback, pw) {var _this6 = this;
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      this.getCommand({
+        field: this.postField,
+        where: pw || this._postWhere(),
+        pageSize: 500 }).
+      then(function (res) {
+        _this6.loading = false;
+        callback(res.result.data);
+        _this6.onDataChange();
+      }).catch(function (err) {
+        _this6.loading = false;
+        _this6.errorMessage = err;
+      });
+    },
+    _pathWhere: function _pathWhere() {
+      var result = [];
+      var where_field = this._getParentNameByField();
+      if (where_field) {
+        result.push("".concat(where_field, " == '").concat(this.dataValue, "'"));
+      }
+
+      if (this.where) {
+        return "(".concat(this.where, ") && (").concat(result.join(' || '), ")");
+      }
+
+      return result.join(' || ');
+    },
+    _postWhere: function _postWhere() {
+      var result = [];
+      var selected = this.selected;
+      var parentField = this.parentField;
+      if (parentField) {
+        result.push("".concat(parentField, " == null || ").concat(parentField, " == \"\""));
+      }
+      if (selected.length) {
+        for (var i = 0; i < selected.length - 1; i++) {
+          result.push("".concat(parentField, " == '").concat(selected[i].value, "'"));
+        }
+      }
+
+      var where = [];
+      if (this.where) {
+        where.push("(".concat(this.where, ")"));
+      }
+      if (result.length) {
+        where.push("(".concat(result.join(' || '), ")"));
+      }
+
+      return where.join(' && ');
+    },
+    _nodeWhere: function _nodeWhere() {
+      var result = [];
+      var selected = this.selected;
+      if (selected.length) {
+        result.push("".concat(this.parentField, " == '").concat(selected[selected.length - 1].value, "'"));
+      }
+
+      if (this.where) {
+        return "(".concat(this.where, ") && (").concat(result.join(' || '), ")");
+      }
+
+      return result.join(' || ');
+    },
+    _getParentNameByField: function _getParentNameByField() {
+      var fields = this.field.split(',');
+      var where_field = null;
+      for (var i = 0; i < fields.length; i++) {
+        var items = fields[i].split('as');
+        if (items.length < 2) {
+          continue;
+        }
+        if (items[1].trim() === 'value') {
+          where_field = items[0].trim();
+          break;
+        }
+      }
+      return where_field;
+    },
+    _isTreeView: function _isTreeView() {
+      return this.parentField && this.selfField;
+    },
+    _updateSelected: function _updateSelected() {
+      var dl = this.dataList;
+      var sl = this.selected;
+      var textField = this.map.text;
+      var valueField = this.map.value;
+      for (var i = 0; i < sl.length; i++) {
+        var value = sl[i].value;
+        var dl2 = dl[i];
+        for (var j = 0; j < dl2.length; j++) {
+          var item2 = dl2[j];
+          if (item2[valueField] === value) {
+            sl[i].text = item2[textField];
+            break;
+          }
+        }
+      }
+    },
+    _updateBindData: function _updateBindData(node) {var _this$_filterData =
+
+
+
+      this._filterData(this._treeData, this.selected),dataList = _this$_filterData.dataList,hasNodes = _this$_filterData.hasNodes;
+
+      var isleaf = this._stepSearh === false && !hasNodes;
+
+      if (node) {
+        node.isleaf = isleaf;
+      }
+
+      this.dataList = dataList;
+      this.selectedIndex = dataList.length - 1;
+
+      if (!isleaf && this.selected.length < dataList.length) {
+        this.selected.push({
+          value: null,
+          text: "请选择" });
+
+      }
+
+      return {
+        isleaf: isleaf,
+        hasNodes: hasNodes };
+
+    },
+    _filterData: function _filterData(data, paths) {
+      var dataList = [];
+      var hasNodes = true;
+
+      dataList.push(data.filter(function (item) {
+        return item.parent_value === null || item.parent_value === undefined || item.parent_value === '';
+      }));
+      for (var i = 0; i < paths.length; i++) {
+        var value = paths[i].value;
+        var nodes = data.filter(function (item) {
+          return item.parent_value === value;
+        });
+
+        if (nodes.length) {
+          dataList.push(nodes);
+        } else {
+          hasNodes = false;
+        }
+      }
+
+      return {
+        dataList: dataList,
+        hasNodes: hasNodes };
+
+    },
+    _extractTree: function _extractTree(nodes, result, parent_value) {
+      var list = result || [];
+      var valueField = this.map.value;
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+
+        var child = {};
+        for (var key in node) {
+          if (key !== 'children') {
+            child[key] = node[key];
+          }
+        }
+        if (parent_value !== null && parent_value !== undefined && parent_value !== '') {
+          child.parent_value = parent_value;
+        }
+        result.push(child);
+
+        var children = node.children;
+        if (children) {
+          this._extractTree(children, result, node[valueField]);
+        }
+      }
+    },
+    _extractTreePath: function _extractTreePath(nodes, result) {
+      var list = result || [];
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+
+        var child = {};
+        for (var key in node) {
+          if (key !== 'children') {
+            child[key] = node[key];
+          }
+        }
+        result.push(child);
+
+        var children = node.children;
+        if (children) {
+          this._extractTreePath(children, result);
+        }
+      }
+    },
+    _findNodePath: function _findNodePath(key, nodes) {var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      var textField = this.map.text;
+      var valueField = this.map.value;
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var children = node.children;
+        var text = node[textField];
+        var value = node[valueField];
+
+        path.push({
+          value: value,
+          text: text });
+
+
+        if (value === key) {
+          return path;
+        }
+
+        if (children) {
+          var p = this._findNodePath(key, children, path);
+          if (p.length) {
+            return p;
+          }
+        }
+
+        path.pop();
+      }
+      return [];
+    },
+    _processLocalData: function _processLocalData() {
+      this._treeData = [];
+      this._extractTree(this.localdata, this._treeData);
+
+      var inputValue = this.dataValue;
+      if (inputValue === undefined) {
+        return;
+      }
+
+      if (Array.isArray(inputValue)) {
+        inputValue = inputValue[inputValue.length - 1];
+        if (typeof inputValue === 'object' && inputValue[this.map.value]) {
+          inputValue = inputValue[this.map.value];
+        }
+      }
+
+      this.selected = this._findNodePath(inputValue, this.localdata);
+    } } };exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 83)["default"]))
 
 /***/ }),
 
@@ -11159,7 +11959,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/old/home/home", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/profile/profile", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/message/message", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/msgDetail/msgDetail", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/addMsg/addMsg", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/old/inbox/inbox", "style": { "navigationBarTitleText": "收件箱", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "uniIdRouter": {}, "condition": { "current": 0, "list": [{ "name": "", "path": "", "query": "" }] } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": [{ "path": "pages/start/start", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/login/login", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/modelSelect/modelSelect", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/old/home/home", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/profile/profile", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/message/message", "style": { "navigationBarTitleText": "", "enablePullDownRefresh": false } }, { "path": "pages/son/msgDetail/msgDetail", "style": { "navigationBarTitleText": "详情", "enablePullDownRefresh": false } }, { "path": "pages/son/addMsg/addMsg", "style": { "navigationBarTitleText": "新建发件", "enablePullDownRefresh": false } }, { "path": "pages/son/selectPkg/selectPkg", "style": { "navigationBarTitleText": "语音包", "enablePullDownRefresh": false } }, { "path": "pages/son/addDay/addDay", "style": { "navigationBarTitleText": "纪念日", "enablePullDownRefresh": false } }, { "path": "pages/son/bind/bind", "style": { "navigationBarTitleText": "绑定", "enablePullDownRefresh": false } }, { "path": "pages/old/inbox/inbox", "style": { "navigationBarTitleText": "收件箱", "enablePullDownRefresh": false } }], "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "拾忆", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" }, "tabBar": { "selectedColor": "white", "list": [{ "text": "发件箱", "iconPath": "static/fajian-2.png", "pagePath": "pages/son/message/message", "selectedIconPath": "static/fajian-2.png" }, { "text": "选择语音包", "pagePath": "pages/son/selectPkg/selectPkg", "iconPath": "static/yuyin.png", "selectedIconPath": "static/yuyin.png" }, { "text": "主页", "pagePath": "pages/son/profile/profile", "iconPath": "static/wode.png", "selectedIconPath": "static/wode.png" }] }, "uniIdRouter": {} };exports.default = _default;
 
 /***/ }),
 
