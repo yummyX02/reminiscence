@@ -200,6 +200,11 @@ var _default =
   methods: {
     youngModel: function youngModel() {
       console.log("youngModel");
+      setTimeout(function () {
+        uni.reLaunch({
+          url: "/pages/son/message/message" });
+
+      }, 0);
     },
     oldModel: function oldModel() {
       console.log("oldModel");

@@ -43,6 +43,11 @@ export default {
   methods: {
     youngModel() {
       console.log("youngModel");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/son/message/message",
+        });
+      }, 0);
     },
     oldModel() {
       console.log("oldModel");
