@@ -1,32 +1,33 @@
 {
-  "projectname": "22-shiyi_hua5",
-  "setting": {
-    "compileHotReLoad": true
-  },
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
     "miniprogram": {
       "list": [
         {
-          "name": "模式选择",
-          "pathName": "pages/modelSelect/modelSelect",
+          "name": "登录界面",
+          "pathName": "pages/login/login",
           "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
-<<<<<<< HEAD
           "name": "老人主页",
           "pathName": "pages/old/home/home",
-=======
-          "name": "",
-          "pathName": "pages/son/profile/profile",
->>>>>>> 35ba5ff8ff16f9e4fe5c80cde0b4a41984de0b53
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "收件箱",
+          "pathName": "pages/old/inbox/inbox",
           "query": "",
           "launchMode": "default",
           "scene": null
         }
       ]
     }
+  },
+  "setting": {
+    "compileHotReLoad": true
   }
 }

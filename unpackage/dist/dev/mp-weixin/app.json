@@ -7,7 +7,8 @@
     "pages/son/profile/profile",
     "pages/son/message/message",
     "pages/son/msgDetail/msgDetail",
-    "pages/son/addMsg/addMsg"
+    "pages/son/addMsg/addMsg",
+    "pages/old/inbox/inbox"
   ],
   "subPackages": [],
   "window": {
