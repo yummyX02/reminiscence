@@ -11,10 +11,10 @@
     <uni-card>
       <view class="top">
         <input class="ipt2" type="text" placeholder="请输入内容" />
-      </view>
-      <view class="bottom">
-        <uni-icons type="notification" size="30"></uni-icons
-        ><uni-icons type="mic" size="30"></uni-icons>
+        <view class="bottom">
+          <uni-icons type="notification" size="30"></uni-icons
+          ><uni-icons type="mic" size="30"></uni-icons>
+        </view>
       </view>
     </uni-card>
   </view>
@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .foot {
   display: flex;
   justify-content: space-between;
@@ -41,7 +42,7 @@ export default {
 .ipt {
   background-color: aquamarine;
 }
-.ipt2{
+.ipt2 {
   height: 150px;
 }
 .bottom {

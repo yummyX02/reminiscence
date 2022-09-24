@@ -1,81 +1,23 @@
 {
-  "projectname": "22-shiyi_hua5",
-  "setting": {
-    "compileHotReLoad": true
-  },
-  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
     "miniprogram": {
       "list": [
         {
-          "name": "模式选择",
-          "pathName": "pages/modelSelect/modelSelect",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-<<<<<<< HEAD
-          "name": "老人主页",
-          "pathName": "pages/old/home/home",
-=======
           "name": "",
-          "pathName": "pages/login/login",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "缓冲页",
-          "pathName": "pages/start/start",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "消息页",
           "pathName": "pages/son/message/message",
           "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
-          "name": "新建发件页",
+          "name": "",
           "pathName": "pages/son/addMsg/addMsg",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "选择语音包",
-          "pathName": "pages/son/selectPkg/selectPkg",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "主页",
-          "pathName": "pages/son/profile/profile",
->>>>>>> 35ba5ff8ff16f9e4fe5c80cde0b4a41984de0b53
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "添加纪念日",
-          "pathName": "pages/son/addDay/addDay",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "绑定关系",
-          "pathName": "pages/son/bind/bind",
           "query": "",
           "launchMode": "default",
           "scene": null
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
 }
