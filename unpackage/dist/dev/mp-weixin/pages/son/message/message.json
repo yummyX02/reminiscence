@@ -2,6 +2,7 @@
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
+    "uni-section": "/uni_modules/uni-section/components/uni-section/uni-section",
     "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons",
     "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup",
     "uni-popup-dialog": "/uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog",
