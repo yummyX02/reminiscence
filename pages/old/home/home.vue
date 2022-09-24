@@ -77,7 +77,11 @@ export default {
   },
   methods: {
     inbox() {
-      console.log("inbox");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/old/inbox/inbox",
+        });
+      }, 0);
     },
     memo() {
       console.log("memo");

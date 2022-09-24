@@ -224,7 +224,39 @@ var _default =
           duration: 3000 });
 
       } else {
-        console.log("truenum");
+        var data = { phone: this.phone };
+        uni.$http.
+        post("/login/phone-get-sms", data).
+        then(function (res) {
+          if (res.statusCode == 200) {
+            if (res.data.code == "00000") {
+              uni.showToast({
+                title: "验证码已发送",
+                icon: "none",
+                duration: 3000 });
+
+            } else {
+              uni.showToast({
+                title: "获取验证码失败",
+                icon: "error",
+                duration: 3000 });
+
+            }
+          } else {
+            uni.showToast({
+              title: "获取验证码失败",
+              icon: "error",
+              duration: 3000 });
+
+          }
+        }).
+        catch(function (err) {
+          uni.showToast({
+            title: "获取验证码失败",
+            icon: "error",
+            duration: 3000 });
+
+        });
       }
     },
     login: function login() {
@@ -249,12 +281,45 @@ var _default =
               duration: 3000 });
 
           } else {
-            console.log("login");
-            setTimeout(function () {
-              uni.reLaunch({
-                url: "/pages/modelSelect/modelSelect" });
+            var data = {
+              phone: this.phone,
+              verificationCode: this.checkMa };
 
-            }, 0);
+            uni.$http.
+            post("/login/phone-verification-sms", data).
+            then(function (res) {
+              console.log(res);
+              if (res.statusCode == 200) {
+                if (res.data.code == "00000") {
+                  uni.setStorageSync("userId", res.data.data.userId);
+                  uni.setStorageSync("token", res.data.data.token);
+                  setTimeout(function () {
+                    uni.reLaunch({
+                      url: "/pages/modelSelect/modelSelect" });
+
+                  }, 0);
+                } else {
+                  uni.showToast({
+                    title: res.data.message,
+                    icon: "none",
+                    duration: 3000 });
+
+                }
+              } else {
+                uni.showToast({
+                  title: "登录失败",
+                  icon: "error",
+                  duration: 3000 });
+
+              }
+            }).
+            catch(function (err) {
+              uni.showToast({
+                title: "登录失败",
+                icon: "error",
+                duration: 3000 });
+
+            });
           }
         }
       }
