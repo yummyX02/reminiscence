@@ -109,8 +109,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.father{
+<style lang="scss" scoped>
+.father {
   overflow: hidden;
   position: relative;
   height: 100vh;
@@ -132,5 +132,8 @@ export default {
   right: 0;
   display: flex;
   align-self: flex-end;
+}
+/deep/.uni-list-item {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 </style>

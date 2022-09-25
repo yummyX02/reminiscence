@@ -84,10 +84,18 @@ export default {
       }, 0);
     },
     memo() {
-      console.log("memo");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/old/memo/memo",
+        });
+      }, 0);
     },
     bind() {
-      console.log("bind");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/old/bind/bind",
+        });
+      }, 0);
     },
   },
 };

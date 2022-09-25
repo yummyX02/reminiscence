@@ -18,35 +18,12 @@
         </div>
       </div>
       <div class="list">
-        <div class="item">
-          <div class="itemLeft">8:00</div>
+        <div class="item" v-for="(item, index) in oldList" :key="index">
+          <div class="itemLeft">{{ item.timeList[0] }}</div>
           <div class="itemRight">
-            <div class="name">女儿</div>
-            <div class="content">记得吃药，多喝水，早点睡觉，多穿衣服。</div>
+            <div class="name">{{ item.name }}</div>
+            <div class="content">{{ item.data }}</div>
           </div>
-        </div>
-        <div class="item">
-          <div class="itemLeft">9:00</div>
-          <div class="itemRight">
-            <div class="name">儿子</div>
-            <div class="content">记得吃药，多喝水，早点睡觉，多穿衣服。</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="itemLeft">10:00</div>
-          <div class="itemRight"></div>
-        </div>
-        <div class="item">
-          <div class="itemLeft">11:30</div>
-          <div class="itemRight"></div>
-        </div>
-        <div class="item">
-          <div class="itemLeft"></div>
-          <div class="itemRight"></div>
-        </div>
-        <div class="item">
-          <div class="itemLeft"></div>
-          <div class="itemRight"></div>
         </div>
       </div>
     </div>
@@ -60,6 +37,8 @@ export default {
       month: "",
       date: null,
       ymd: "",
+      timestamp: 0,
+      oldList: [],
     };
   },
   methods: {
@@ -121,18 +100,43 @@ export default {
       this.$refs.calendar.open();
     },
     confirm(e) {
-      console.log(e);
       this.date = e.date;
       this.ymd = e.fulldate;
+      this.timestamp =
+        new Date(new Date(e.fulldate).toDateString()).getTime() / 1000;
       this.month = this.pdMonth(e.month * 1);
+      const data = {
+        userId: uni.getStorageSync("userId"),
+        time: this.timestamp,
+      };
+      console.log(data);
+      uni.$http
+        .get("/parent/inbox/all", data)
+        .then((res) => {
+          console.log(res);
+          if (res.statusCode == 200) {
+            if (res.data.code == "00000") {
+              console.log("老人主页加载成功");
+              this.oldList = res.data.data;
+              console.log("1", this.oldList);
+            } else {
+              console.log("老人主页加载失败==200");
+            }
+          } else {
+            console.log("老人主页加载失败!=200");
+          }
+        })
+        .catch((err) => {
+          console.log(err, "请求发送加载失败");
+        });
     },
   },
   onLoad() {
-    var date = new Date();
-    var seperator1 = "-";
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
+    let date = new Date();
+    let seperator1 = "-";
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let strDate = date.getDate();
     this.month = this.pdMonth(month * 1);
     this.date = strDate;
     if (month >= 1 && month <= 9) {
@@ -143,6 +147,31 @@ export default {
     }
     var currentdate = year + seperator1 + month + seperator1 + strDate;
     this.ymd = currentdate;
+    this.timestamp = new Date(date.toLocaleDateString()).getTime() / 1000;
+    console.log(this.timestamp);
+    const data = {
+      userId: uni.getStorageSync("userId"),
+      time: this.timestamp,
+    };
+    console.log(data);
+    uni.$http
+      .get("/parent/inbox/all", data)
+      .then((res) => {
+        console.log(res);
+        if (res.statusCode == 200) {
+          if (res.data.code == "00000") {
+            console.log("老人主页加载成功");
+            this.oldList = res.data.data;
+          } else {
+            console.log("老人主页加载失败==200");
+          }
+        } else {
+          console.log("老人主页加载失败!=200");
+        }
+      })
+      .catch((err) => {
+        console.log(err, "请求发送加载失败");
+      });
   },
 };
 </script>
@@ -161,10 +190,10 @@ export default {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
   .title {
     width: 100%;
-    height: 23vh;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     .titleTop {
       // position: relative;
       width: 100%;
