@@ -91,7 +91,11 @@ export default {
       }, 0);
     },
     bind() {
-      console.log("bind");
+      setTimeout(() => {
+        uni.reLaunch({
+          url: "/pages/old/bind/bind",
+        });
+      }, 0);
     },
   },
 };
