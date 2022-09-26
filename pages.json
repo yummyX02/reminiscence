@@ -10,14 +10,14 @@
     }, {
       "path": "pages/login/login",
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "登陆",
         "enablePullDownRefresh": false
       }
 
     }, {
       "path": "pages/modelSelect/modelSelect",
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "模式选择",
         "enablePullDownRefresh": false
       }
 
@@ -35,7 +35,7 @@
             "path" : "pages/son/profile/profile",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的",
                 "enablePullDownRefresh": false
             }
             
@@ -44,7 +44,7 @@
             "path" : "pages/son/message/message",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "收件箱",
                 "enablePullDownRefresh": false
             }
             
@@ -99,6 +99,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "收件箱",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/son/modelSpecial/modelSpecial",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "拾忆录音棚",
                 "enablePullDownRefresh": false
             }
             

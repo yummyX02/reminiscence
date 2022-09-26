@@ -1,7 +1,7 @@
 <template>
   <view class="father">
     <view class="title">
-      <uni-section title="发件箱" titleFontSize="16px"></uni-section>
+      <uni-section title="发件箱" titleFontSize="16px" id="title"></uni-section>
       <div class="icon">
         <uni-icons
           type="search"
@@ -26,6 +26,7 @@
     <view class="msgInfo">
       <uni-list>
         <uni-list-item
+          class="listItem"
           v-for="(item, i) in msgList"
           :key="i"
           :title="item.name"
@@ -109,8 +110,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.father{
+<style lang="scss" scoped>
+.father {
   overflow: hidden;
   position: relative;
   height: 100vh;
@@ -132,5 +133,15 @@ export default {
   right: 0;
   display: flex;
   align-self: flex-end;
+}
+// 深度
+/deep/ .uni-section{
+  background: transparent; /*完全透明*/
+}
+/deep/ .uni-list{
+  background: transparent; /*完全透明*/
+}
+/deep/ .uni-list-item{
+  background: transparent; /*完全透明*/
 }
 </style>
