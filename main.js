@@ -22,4 +22,4 @@ export function createApp() {
 
 // 在main.js 中引入api.js
 // import {uni} from "@/common/api.js";
-import {uni} from "./apis/api"
+import { uni } from "./apis/api"

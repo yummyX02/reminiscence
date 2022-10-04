@@ -12,7 +12,7 @@
             <template slot="footer">
               <image
                 style="width: 30px; heght: 30px"
-                src="../../../static/bofang.png"
+                src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
                 mode="widthFix"
               ></image>
             </template>
@@ -23,8 +23,11 @@
     <view class="response">
       <text>反馈:</text>
       <view class="yuyin">
-        <image class="yuyinIcon" src="../../../static/bofang.png"></image>
-       </view>
+        <image
+          class="yuyinIcon"
+          src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
+        ></image>
+      </view>
     </view>
   </view>
 </template>
@@ -65,15 +68,15 @@ export default {
 </script>
 
 <style lang="scss">
-.response{
+.response {
   width: 2000rpx;
   height: 30px;
 }
-.yuyinIcon{
+.yuyinIcon {
   width: 30px;
   height: 30px;
 }
-.yuyin{
+.yuyin {
   border-radius: 10px;
   background-color: bisque;
 }

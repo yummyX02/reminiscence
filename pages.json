@@ -135,7 +135,12 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "收件",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+                "app-plus": {  //uni-app项目对应节点名称为"app-plus"
+                  "titleNView": {  
+                    "autoBackButton":false
+                  }	
+                }
             }
             
         }

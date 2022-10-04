@@ -13,7 +13,7 @@
           <div class="item" v-for="(item, index) in memoList" :key="index">
             <div class="itemTop">
               <img
-                src="../../../static/bofang.png"
+                src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
                 style="height: 50px; width: 50px"
               />
               <div class="iconRight">
@@ -39,14 +39,14 @@ export default {
   methods: {
     back() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/home/home",
         });
       }, 0);
     },
     newMemo() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/newMemo/newMemo",
         });
       }, 0);

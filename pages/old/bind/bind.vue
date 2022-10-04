@@ -23,7 +23,6 @@
             ></uni-tag>
             <uni-popup ref="userPopup" type="dialog">
               <uni-popup-dialog
-                ref="inputClose"
                 mode="input"
                 title="编辑用户名"
                 value=""
@@ -40,20 +39,10 @@
         <div class="list">
           绑定列表
           <div class="listDet">
-            <uni-popup ref="childPopup" type="dialog">
-              <uni-popup-dialog
-                ref="inputClose2"
-                mode="input"
-                title="编辑备注"
-                value=""
-                placeholder="请输入备注"
-                @confirm="dialogInputConfirm2"
-              ></uni-popup-dialog>
-            </uni-popup>
             <div class="item" v-for="(item, index) in childList" :key="index">
               {{ item.name }}
               <uni-tag
-                @click="changeChildName"
+                @click="changeChildName(item)"
                 text="编辑"
                 class="litTag"
                 size="small"
@@ -63,7 +52,16 @@
                 :circle="true"
                 cal
               ></uni-tag>
-              <span class="rightTag">解绑</span>
+              <uni-popup :ref="'changeChildName' + item.userId" type="dialog">
+                <uni-popup-dialog
+                  mode="input"
+                  title="编辑备注"
+                  value=""
+                  placeholder="请输入备注"
+                  @confirm="dialogInputConfirm2"
+                ></uni-popup-dialog>
+              </uni-popup>
+              <span class="rightTag" @click="unbind(item)">解绑</span>
             </div>
           </div>
         </div>
@@ -79,25 +77,29 @@ export default {
       userName: "",
       childList: [],
       erweima: "",
+      changeChildNameItem: {},
     };
   },
   methods: {
     back() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/home/home",
         });
       }, 0);
     },
-    changeChildName() {
+    changeChildName(item) {
       console.log("changeChildName");
-      this.$refs.childPopup.open();
+      this.changeChildNameItem = item;
+      this.$refs[`changeChildName${item.userId}`][0].open();
     },
     changeUserName() {
       console.log("changeUserName123");
+      console.log(this.$refs);
       this.$refs.userPopup.open();
     },
     dialogInputConfirm1(val) {
+      console.log({ val });
       this.userName = val;
       const data = {
         userId: uni.getStorageSync("userId"),
@@ -144,51 +146,117 @@ export default {
         });
     },
     dialogInputConfirm2(val) {
-      console.log(val);
-      // const data = {
-      //   changerId: uni.getStorageSync("userId"),
-      //   beChangerId: 1,
-      //   name: val,
-      // };
-      // uni.$http
-      //   .post("/parent/binding/change-child-name", data)
-      //   .then((res) => {
-      //     console.log(res);
-      //     this.$refs.childPopup.close();
-      //     if (res.statusCode == 200) {
-      //       if (res.data.code == "00000") {
-      //         console.log("修改备注成功");
-      //         uni.showToast({
-      //           title: "修改备注成功",
-      //           icon: "none",
-      //           duration: 3000,
-      //         });
-      //       } else {
-      //         console.log("修改备注失败==200");
-      //         uni.showToast({
-      //           title: "修改备注失败",
-      //           icon: "error",
-      //           duration: 3000,
-      //         });
-      //       }
-      //     } else {
-      //       console.log("修改备注失败!=200");
-      //       uni.showToast({
-      //         title: "修改备注失败",
-      //         icon: "error",
-      //         duration: 3000,
-      //       });
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err, "请求发送加载失败");
-      //     this.$refs.childPopup.close();
-      //     uni.showToast({
-      //       title: "修改备注失败",
-      //       icon: "error",
-      //       duration: 3000,
-      //     });
-      //   });
+      console.log({ val });
+      console.log(this.changeChildNameItem);
+      const data = {
+        changerId: uni.getStorageSync("userId"),
+        beChangerId: this.changeChildNameItem.userId,
+        name: val,
+      };
+      uni.$http
+        .post("/parent/binding/change-child-name", data)
+        .then((res) => {
+          console.log(data);
+          console.log(res);
+          if (res.statusCode == 200) {
+            if (res.data.code == "00000") {
+              console.log("修改备注成功");
+              const data0 = {
+                parentId: uni.getStorageSync("userId"),
+              };
+              uni.$http
+                .get("/parent/binding/all", data0)
+                .then((res) => {
+                  console.log(res);
+                  if (res.statusCode == 200) {
+                    if (res.data.code == "00000") {
+                      console.log("老人绑定列表加载成功");
+                      this.childList = res.data.data;
+                      uni.showToast({
+                        title: "修改备注成功",
+                        icon: "none",
+                        duration: 3000,
+                      });
+                    } else {
+                      console.log("老人绑定列表加载失败==200");
+                    }
+                  } else {
+                    console.log("老人绑定列表加载失败!=200");
+                  }
+                })
+                .catch((err) => {
+                  console.log(err, "请求发送加载失败");
+                });
+            } else {
+              console.log("修改备注失败==200");
+              uni.showToast({
+                title: "修改备注失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          } else {
+            console.log("修改备注失败!=200");
+            uni.showToast({
+              title: "修改备注失败",
+              icon: "error",
+              duration: 3000,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err, "请求发送加载失败");
+          uni.showToast({
+            title: "修改备注失败",
+            icon: "error",
+            duration: 3000,
+          });
+        });
+    },
+    unbind(item) {
+      console.log(item);
+      const relationParam = {
+        parentId: uni.getStorageSync("userId"),
+        childId: item.userId,
+      };
+      uni.$http
+        .post("/parent/binding/unbinding", relationParam)
+        .then((res) => {
+          console.log(res);
+          if (res.statusCode == 200) {
+            if (res.data.code == "00000") {
+              console.log("解除绑定成功");
+              uni.showToast({
+                title: "解除绑定成功",
+                icon: "none",
+                duration: 3000,
+              });
+            } else {
+              console.log("解除绑定失败==200");
+              uni.showToast({
+                title: "解除绑定失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          } else {
+            console.log("解除绑定失败!=200");
+            uni.showToast({
+              title: "解除绑定失败",
+              icon: "error",
+              duration: 3000,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err, "请求发送加载失败");
+          this.$refs.userPopup.close();
+          uni.showToast({
+            title: "解除绑定失败",
+            icon: "error",
+            duration: 3000,
+          });
+        });
     },
   },
   onLoad() {

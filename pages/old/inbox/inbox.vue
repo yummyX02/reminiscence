@@ -18,7 +18,12 @@
         </div>
       </div>
       <div class="list">
-        <div class="item" v-for="(item, index) in oldList" :key="index">
+        <div
+          class="item"
+          v-for="(item, index) in oldList"
+          :key="index"
+          @click="letter(item)"
+        >
           <div class="itemLeft">{{ item.timeList[0] }}</div>
           <div class="itemRight">
             <div class="name">{{ item.name }}</div>
@@ -31,6 +36,8 @@
 </template>
 
 <script>
+import letter from "../../../unpackage/dist/dev/mp-weixin/pages/old/letter/letter";
+
 export default {
   data() {
     return {
@@ -44,8 +51,22 @@ export default {
   methods: {
     back() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/home/home",
+        });
+      }, 0);
+    },
+    letter(item) {
+      uni.setStorageSync("oldDetailScheduleBoxId", item.scheduleBoxId);
+      uni.setStorageSync("oldDetailChildId", item.userId);
+      let hour = item.timeList[0];
+      let detailTime = this.ymd + " " + hour + ":00";
+      let date = new Date(detailTime);
+      let oldDetailTimestamp = date.getTime() / 1000;
+      uni.setStorageSync("oldDetailTimestamp", oldDetailTimestamp);
+      setTimeout(() => {
+        uni.navigateTo({
+          url: "/pages/old/letter/letter",
         });
       }, 0);
     },

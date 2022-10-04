@@ -94,8 +94,9 @@ export default {
             }
           })
           .catch((err) => {
+            console.log(err);
             uni.showToast({
-              title: "获取验证码失败",
+              title: "获取验证码失败*",
               icon: "error",
               duration: 3000,
             });
@@ -137,7 +138,7 @@ export default {
                     uni.setStorageSync("userId", res.data.data.userId);
                     uni.setStorageSync("token", res.data.data.token);
                     setTimeout(() => {
-                      uni.reLaunch({
+                      uni.redirectTo({
                         url: "/pages/modelSelect/modelSelect",
                       });
                     }, 0);
@@ -157,8 +158,9 @@ export default {
                 }
               })
               .catch((err) => {
+                console.log(err);
                 uni.showToast({
-                  title: "登录失败",
+                  title: "登录失败*",
                   icon: "error",
                   duration: 3000,
                 });
@@ -271,7 +273,7 @@ export default {
       .button {
         border: none;
         width: 60%;
-        height: 100rpx;
+        height: 55px;
         margin-bottom: 20px;
         border-radius: 16px;
         padding-left: 10px;
