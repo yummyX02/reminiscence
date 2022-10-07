@@ -53,7 +53,10 @@ class Request {
         url: this.url,
         method: this.method,
         data: this.data,
-        header: this.header,
+        header: {
+          "content-type": "application/json",
+          "Authorization": uni.getStorageSync('token')
+        },
         success: (res) => {
           // console.log(res);
           resolve(res)

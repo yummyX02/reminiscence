@@ -116,6 +116,8 @@ export default {
     padding: 10px;
   }
   .list1 {
+    height: 40px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     padding: 0px 10px;

@@ -1,7 +1,13 @@
 <template>
   <view class="father">
     <view class="title">
-      <uni-section title="发件箱" titleFontSize="16px" id="title"></uni-section>
+      <div class="text">
+        <uni-section
+          title="发件箱"
+          titleFontSize="16px"
+          id="title"
+        ></uni-section>
+      </div>
       <div class="icon">
         <uni-icons
           type="search"
@@ -23,7 +29,7 @@
         <uni-icons type="plus" size="30" @click="gotoAdd()"></uni-icons>
       </div>
     </view>
-    <view class="msgInfo">
+    <div class="msgInfo">
       <uni-list>
         <uni-list-item
           class="listItem"
@@ -31,7 +37,11 @@
           :key="i"
           :title="item.name"
           :note="item.note"
-          @click="gotoMsgDetail()"
+          clickable
+          @click="
+            gotoMsgDetail();
+            setIndex(i);
+          "
           link
         >
           <template slot="footer">
@@ -43,7 +53,7 @@
           </template>
         </uni-list-item>
       </uni-list>
-    </view>
+    </div>
   </view>
 </template>
 
@@ -51,32 +61,46 @@
 export default {
   data() {
     return {
-      msgList: [
-        {
-          name: "妈妈",
-          note: "吃药",
-        },
-        { name: "爸爸", note: "吃饭" },
-        { name: "爷爷", note: "接娃" },
-      ],
+      index: "",
+      no: "",
+      msgList: [],
       extraIcon1: "static/bofang.png",
     };
   },
-  onload() {
-    let data = {
-      userId: "",
-      keyWord: "",
+  onLoad() {
+    const data = {
+      userId: uni.getStorageSync("userId"),
     };
     uni.$http
       .get("/child/outbox/all", data)
       .then((res) => {
+        console.log("我获取发件列表啦~");
         console.log(res);
+        if (res.data.code === "00000") {
+          this.msgList = res.data.data;
+          uni.setStorageSync("myId", res.data.data);
+          console.log("发件箱的数组是:", uni.getStorageSync("myId"));
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+    // const i = this.index;
+    // uni.setStorageSync("myparentId", res.data.data[i].parentId);
+    // uni.setStorageSync("myscheduleBoxId", res.data.data[i].scheduleBoxId);
+    // console.log(uni.getStorageSync("myparentId"));
+    // console.log(uni.getStorageSync("myscheduleBoxId"));
   },
   methods: {
+    // function find(){
+    //   var arr = [];
+    // for (var i = 0; i < list.length; i++) {
+    //   if (list[i].indexOf(keyWord) >= 0) {
+    //     arr.push(list[i]);
+    //   }
+    // }
+    // return arr;
+    // }
     // 打开搜索框
     inputDialogToggle() {
       this.$refs.inputDialog.open();
@@ -99,6 +123,11 @@ export default {
       uni.navigateTo({
         url: "/pages/son/addMsg/addMsg",
       });
+    },
+    // 点击列表进行储存索引数据
+    setIndex(i) {
+      console.log("这是第几个：", i);
+      uni.setStorageSync("index",i);
     },
     gotoMsgDetail() {
       console.log("我去发件详情啦~");
@@ -127,21 +156,26 @@ export default {
 .title {
   display: flex;
   justify-content: center;
+  flex-direction: row;
 }
 .icon {
   position: fixed;
-  right: 0;
+  right: 5px;
   display: flex;
   align-self: flex-end;
+  top: 30px;
+}
+.msgInfo {
+  margin-top: 25px;
 }
 // 深度
-/deep/ .uni-section{
+/deep/ .uni-section {
   background: transparent; /*完全透明*/
 }
-/deep/ .uni-list{
+/deep/ .uni-list {
   background: transparent; /*完全透明*/
 }
-/deep/ .uni-list-item{
+/deep/ .uni-list-item {
   background: transparent; /*完全透明*/
 }
 </style>
