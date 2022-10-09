@@ -61,6 +61,16 @@
                   @confirm="dialogInputConfirm2"
                 ></uni-popup-dialog>
               </uni-popup>
+              <!-- 提示窗示例 -->
+              <uni-popup :ref="'unbindDialog' + item.userId" type="dialog">
+                <uni-popup-dialog
+                  type="info"
+                  cancelText="关闭"
+                  confirmText="确定"
+                  content="是否解除绑定"
+                  @confirm="unbindConfirm(item)"
+                ></uni-popup-dialog>
+              </uni-popup>
               <span class="rightTag" @click="unbind(item)">解绑</span>
             </div>
           </div>
@@ -214,7 +224,9 @@ export default {
         });
     },
     unbind(item) {
-      console.log(item);
+      this.$refs[`unbindDialog${item.userId}`][0].open();
+    },
+    unbindConfirm(item) {
       const relationParam = {
         parentId: uni.getStorageSync("userId"),
         childId: item.userId,

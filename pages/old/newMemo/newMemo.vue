@@ -40,6 +40,9 @@
         </div>
         <uni-popup ref="colckDialog" type="dialog">
           <view class="popup-date">
+            <span style="margin-bottom: 20px; font-size: 1.1em"
+              >设置日程提醒</span
+            >
             <uni-datetime-picker
               returnType="timestamp"
               v-model="clockDate"
@@ -64,6 +67,10 @@ export default {
       clockDate: "",
       timestamp: "",
       title: "",
+      getLength: {
+        startTimestamp: 0,
+        endTimestamp: 0,
+      },
     };
   },
   onLoad() {
@@ -74,37 +81,50 @@ export default {
     let self = this;
     this.recorderManager.onStop(function (res) {
       console.log("recorder stop" + JSON.stringify(res));
+      self.getLength.endTimestamp = Date.now();
       self.voicePath = res.tempFilePath;
-      self.voiceLength = res.duration;
+      self.voiceLength = parseInt(
+        (self.getLength.endTimestamp - self.getLength.startTimestamp) / 1000 + 1
+      );
     });
   },
   methods: {
     async addSchedule() {
-      await addSchedule({
-        title: this.title,
-        description: "",
-        dtstart: this.timestamp,
-        dtend: this.timestamp,
-      });
-      uni.uploadFile({
-        url: "https://43.142.146.75:38080/parent/memorandum/newly-build", //仅为示例，非真实的接口地址
-        filePath: this.voicePath,
-        name: "file",
-        formData: {
-          length: this.voiceLength,
-          userId: uni.getStorageSync("userId"),
-          data: this.title,
-          time: this.timestamp / 1000,
-        },
-        header: {
-          "content-type": "multipart/form-data",
-          Authorization: uni.getStorageSync("token"),
-        },
-        success: (uploadFileRes) => {
-          console.log("111", uploadFileRes.data);
-          uni.showToast({ title: "日程添加成功" });
-        },
-      });
+      if (this.voiceLength < 3) {
+        uni.showToast({
+          icon: "error",
+          title: "录音时间太短",
+        });
+      } else {
+        await addSchedule({
+          title: this.title,
+          description: "",
+          dtstart: this.timestamp,
+          dtend: this.timestamp,
+        });
+        uni.uploadFile({
+          url: "https://43.142.146.75:38080/parent/memorandum/newly-build", //仅为示例，非真实的接口地址
+          filePath: this.voicePath,
+          name: "file",
+          formData: {
+            length: this.voiceLength,
+            userId: uni.getStorageSync("userId"),
+            data: this.title,
+            time: this.timestamp / 1000,
+          },
+          header: {
+            "content-type": "multipart/form-data",
+            Authorization: uni.getStorageSync("token"),
+          },
+          success: (uploadFileRes) => {
+            console.log("newMemo", JSON.parse(uploadFileRes.data));
+            let data = JSON.parse(uploadFileRes.data);
+            if (data.code == "00000") {
+              uni.showToast({ title: "日程添加成功" });
+            }
+          },
+        });
+      }
     },
     toggle(type) {
       this.type = type;
@@ -113,6 +133,7 @@ export default {
     },
     startRecord() {
       console.log("开始录音");
+      this.getLength.startTimestamp = Date.now();
       this.recorderManager.start({
         sampleRate: 16000, //采样率，App、小程序
         //encodeBitRate:96000,//仅小程序支持编码码率
@@ -161,11 +182,21 @@ export default {
       this.endRecord();
       this.$refs.popup.close();
       setTimeout(() => {
-        this.$refs.inputDialogText.open();
+        if (this.voiceLength < 3) {
+          uni.showToast({
+            icon: "error",
+            title: "录音时间太短",
+          });
+        } else {
+          this.$refs.inputDialogText.open();
+        }
       }, 1000);
     },
     dialogInputText(e) {
       this.title = e;
+      setTimeout(() => {
+        this.setcolckPop();
+      }, 1000);
     },
     setcolckPop() {
       this.$refs.colckDialog.open();
@@ -220,6 +251,7 @@ export default {
     .popup-date {
       border-radius: 10rpx;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 30px;
