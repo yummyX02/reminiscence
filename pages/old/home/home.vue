@@ -78,21 +78,21 @@ export default {
   methods: {
     inbox() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/inbox/inbox",
         });
       }, 0);
     },
     memo() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/memo/memo",
         });
       }, 0);
     },
     bind() {
       setTimeout(() => {
-        uni.reLaunch({
+        uni.redirectTo({
           url: "/pages/old/bind/bind",
         });
       }, 0);

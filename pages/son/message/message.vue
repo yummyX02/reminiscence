@@ -47,7 +47,7 @@
           <template slot="footer">
             <image
               style="width: 30px; heght: 30px"
-              src="../../../static/bofang.png"
+              src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
               mode="widthFix"
             ></image>
           </template>

@@ -50,6 +50,7 @@ class Request {
     // 发起请求
     return new Promise((resolve, reject) => {
       uni.request({
+        sslVerify: false,
         url: this.url,
         method: this.method,
         data: this.data,

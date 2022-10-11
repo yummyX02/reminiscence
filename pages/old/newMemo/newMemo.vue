@@ -8,37 +8,167 @@
         </div>
       </div>
       <div class="noTitle">
-        <div class="say">
+        <div class="say" @longtap="saysay" @touchend="saydone">
           <img
-            src="../../../static/huatong-2.png"
+            src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/huatong-2.png"
             style="height: 200px; width: 200px"
           />
           <div class="sayText">长按说出备忘事项</div>
         </div>
-        <div class="clock">
+        <uni-popup ref="popup" type="dialog">
+          <view class="popup-content">
+            <uni-icons type="mic-filled" size="30"></uni-icons>
+            <text class="text">录音中...</text>
+          </view>
+        </uni-popup>
+        <uni-popup ref="inputDialogText" type="dialog">
+          <uni-popup-dialog
+            ref="inputClose"
+            mode="input"
+            title="输入标题"
+            value=""
+            placeholder="请输入内容"
+            @confirm="dialogInputText($event)"
+          ></uni-popup-dialog>
+        </uni-popup>
+        <div class="clock" @click="setcolckPop">
           <img
-            src="../../../static/naozhong.png"
+            src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/naozhong.png"
             style="height: 70px; width: 70px"
           />
           <div class="clockText">闹钟设置</div>
         </div>
+        <uni-popup ref="colckDialog" type="dialog">
+          <view class="popup-date">
+            <uni-datetime-picker
+              returnType="timestamp"
+              v-model="clockDate"
+              @change="changeLog($event)"
+            />
+          </view>
+        </uni-popup>
       </div>
     </div>
   </view>
 </template>
 
 <script>
+import { addSchedule } from "@/uni_modules/vv-schedule";
 export default {
   data() {
-    return {};
+    return {
+      voicePath: "",
+      voiceLength: 0,
+      recorderManager: {},
+      innerAudioContext: {},
+      clockDate: "",
+      timestamp: "",
+      title: "",
+    };
+  },
+  onLoad() {
+    this.recorderManager = uni.getRecorderManager();
+    this.innerAudioContext = uni.createInnerAudioContext();
+    this.innerAudioContext.autoplay = true;
+    console.log("uni.getRecorderManager()", uni.getRecorderManager());
+    let self = this;
+    this.recorderManager.onStop(function (res) {
+      console.log("recorder stop" + JSON.stringify(res));
+      self.voicePath = res.tempFilePath;
+      self.voiceLength = res.duration;
+    });
   },
   methods: {
+    async addSchedule() {
+      await addSchedule({
+        title: this.title,
+        description: "",
+        dtstart: this.timestamp,
+        dtend: this.timestamp,
+      });
+      uni.uploadFile({
+        url: "https://43.142.146.75:38080/parent/memorandum/newly-build", //仅为示例，非真实的接口地址
+        filePath: this.voicePath,
+        name: "file",
+        formData: {
+          length: this.voiceLength,
+          userId: uni.getStorageSync("userId"),
+          data: this.title,
+          time: this.timestamp / 1000,
+        },
+        header: {
+          "content-type": "multipart/form-data",
+          Authorization: uni.getStorageSync("token"),
+        },
+        success: (uploadFileRes) => {
+          console.log("111", uploadFileRes.data);
+          uni.showToast({ title: "日程添加成功" });
+        },
+      });
+    },
+    toggle(type) {
+      this.type = type;
+      // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+      this.$refs.popup.open(type);
+    },
+    startRecord() {
+      console.log("开始录音");
+      this.recorderManager.start({
+        sampleRate: 16000, //采样率，App、小程序
+        //encodeBitRate:96000,//仅小程序支持编码码率
+        numberOfChannels: 1,
+        format: "wav", //格式 aac/mp3/wav/PCM，App默认值为mp3，小程序默认值aac
+      });
+    },
+    endRecord() {
+      console.log("录音结束");
+      this.recorderManager.stop();
+      console.log(this.recorderManager);
+    },
+    playVoice() {
+      console.log("播放录音");
+      console.log("this.voicePath", this.voicePath);
+      if (this.voicePath) {
+        this.innerAudioContext.src = this.voicePath;
+        this.innerAudioContext.play();
+      }
+    },
+    changeLog(e) {
+      console.log("change事件:", e);
+      this.timestamp = e;
+      setTimeout(() => {
+        this.$refs.colckDialog.close();
+      }, 800);
+      setTimeout(() => {
+        this.addSchedule();
+      }, 1000);
+    },
+
     back() {
       setTimeout(() => {
         uni.reLaunch({
           url: "/pages/old/memo/memo",
         });
       }, 0);
+    },
+    saysay() {
+      console.log("saysay");
+      this.toggle("center");
+      this.startRecord();
+    },
+    saydone() {
+      console.log("saydone");
+      this.endRecord();
+      this.$refs.popup.close();
+      setTimeout(() => {
+        this.$refs.inputDialogText.open();
+      }, 1000);
+    },
+    dialogInputText(e) {
+      this.title = e;
+    },
+    setcolckPop() {
+      this.$refs.colckDialog.open();
     },
   },
 };
@@ -72,6 +202,31 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    .popup {
+      border-radius: 10rpx;
+    }
+    .popup-content {
+      border-radius: 10rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      height: 90px;
+      width: 120px;
+      background-color: #fff;
+      font-size: 1.4em;
+    }
+    .popup-date {
+      border-radius: 10rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      height: 70px;
+      width: 240px;
+      background-color: #fff;
+    }
     .say {
       width: 100%;
       height: 50vh;

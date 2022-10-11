@@ -21,25 +21,25 @@ export default {
           if (res.statusCode == 200) {
             if (res.data.code == "00000") {
               console.log("token验证成功");
-              uni.reLaunch({
+              uni.redirectTo({
                 url: "/pages/modelSelect/modelSelect",
               });
             } else {
               console.log("token验证失败==200");
-              uni.reLaunch({
+              uni.redirectTo({
                 url: "/pages/login/login",
               });
             }
           } else {
             console.log("token验证失败!=200");
-            uni.reLaunch({
+            uni.redirectTo({
               url: "/pages/login/login",
             });
           }
         })
         .catch((err) => {
           console.log(err, "发送请求失败");
-          uni.reLaunch({
+          uni.redirectTo({
             url: "/pages/login/login",
           });
         });

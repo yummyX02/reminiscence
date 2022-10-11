@@ -1,6 +1,5 @@
 {
 	"pages": [
-		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/start/start",
 			"style": {
@@ -86,6 +85,55 @@
 			}
 		},
 		{
+			"path": "pages/son/finish/finish",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/bianji/bianji",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/msgDetail/msgDetail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/addMsg/addMsg",
+			"style": {
+				"navigationBarTitleText": "新建发件",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/selectPkg/selectPkg",
+			"style": {
+				"navigationBarTitleText": "语音包",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/addDay/addDay",
+			"style": {
+				"navigationBarTitleText": "纪念日",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/bind/bind",
+			"style": {
+				"navigationBarTitleText": "绑定",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/old/inbox/inbox",
 			"style": {
 				"navigationBarTitleText": "收件箱",
@@ -117,28 +165,15 @@
 			"path": "pages/old/letter/letter",
 			"style": {
 				"navigationBarTitleText": "收件",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": {
+						"autoBackButton": false
+					}
+				}
 			}
 		}
-	    ,{
-            "path" : "pages/son/finish/finish",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/son/bianji/bianji",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "拾忆",
