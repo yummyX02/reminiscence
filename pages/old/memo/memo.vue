@@ -15,6 +15,7 @@
               <img
                 src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
                 style="height: 50px; width: 50px"
+                @click="memoItem(item)"
               />
               <div class="iconRight">
                 <div class="rightTitle">{{ item.data }}</div>
@@ -34,6 +35,8 @@ export default {
   data() {
     return {
       memoList: [],
+      innerAudioContext: {},
+      voicePath: "",
     };
   },
   methods: {
@@ -51,8 +54,14 @@ export default {
         });
       }, 0);
     },
+    memoItem(t) {
+      this.innerAudioContext.src = t.videoUrl;
+      this.innerAudioContext.play();
+    },
   },
   onLoad() {
+    this.innerAudioContext = uni.createInnerAudioContext();
+    this.innerAudioContext.autoplay = true;
     const data = {
       userId: uni.getStorageSync("userId"),
       time: this.timestamp,
