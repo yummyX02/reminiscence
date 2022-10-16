@@ -17,7 +17,7 @@
     <view class="bindList">
       <div id="list">绑定列表</div>
       <div class="list1" v-for="(item, i) in bindList" :key="i">
-        <div class="left" >
+        <div class="left">
           <div class="person">{{ item.person }}</div>
           <div class="bianji">编辑</div>
         </div>
@@ -74,7 +74,6 @@ export default {
   width: 280px;
   height: 300px;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid black;
   border-radius: 20px;
   .text {
     display: flex;
@@ -120,6 +119,7 @@ export default {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 10px;
     font-size: 18px;
     background-color: rgba(255, 255, 255, 0.4);
