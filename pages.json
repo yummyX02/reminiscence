@@ -38,42 +38,7 @@
 		{
 			"path": "pages/son/message/message",
 			"style": {
-				"navigationBarTitleText": "发件箱",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/msgDetail/msgDetail",
-			"style": {
-				"navigationBarTitleText": "详情",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/addMsg/addMsg",
-			"style": {
-				"navigationBarTitleText": "新建发件",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/selectPkg/selectPkg",
-			"style": {
-				"navigationBarTitleText": "语音包",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/addDay/addDay",
-			"style": {
-				"navigationBarTitleText": "纪念日",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/bind/bind",
-			"style": {
-				"navigationBarTitleText": "绑定",
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		},

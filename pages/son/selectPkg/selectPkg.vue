@@ -22,7 +22,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      rateValue: 5,
+    };
   },
   methods: {
     gotoSpecial() {

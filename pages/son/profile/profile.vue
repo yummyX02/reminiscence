@@ -4,17 +4,29 @@
       <!-- 用户名部分 -->
       <view class="id">
         <div class="id_left">
-          <div class="id_text">{{id}}</div>
-          <div class="id_right">编辑</div>
+          <div class="id_text">{{ name }}</div>
+          <div class="id_right" @click="inputDialogToggle()">编辑</div>
+          <!-- 编辑姓名的输入框 -->
+          <view class="rename">
+            <uni-popup ref="inputDialog" type="dialog">
+              <uni-popup-dialog
+                ref="inputClose"
+                mode="input"
+                title="输入新的姓名"
+                placeholder="请输入新的姓名"
+                @confirm="dialogInputConfirm"
+              ></uni-popup-dialog>
+            </uni-popup>
+          </view>
         </div>
       </view>
       <!-- 绑定部分 -->
-      <view class="bind">
+      <view class="bind" @click="gotoBind()">
         <div class="bind_left">
           <div class="bind_text">绑定</div>
         </div>
         <div class="bind_right">
-          <uni-icons type="forward" size="30" @click="gotoBind()"></uni-icons>
+          <uni-icons type="forward" size="30"></uni-icons>
         </div>
       </view>
     </view>
@@ -30,28 +42,17 @@
           <uni-icons @click="addDay()" type="plusempty" size="20"></uni-icons>
         </div>
       </view>
-      <view class="card">
-        <uni-card title="妈妈生日" extra="2022.11.23">
-          <text class="uni-body"
-            >这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text
+      <div class="card">
+        <div
+          class="infoBox"
+          v-for="(item, index) in AnniversaryResult"
+          :key="index"
           >
-        </uni-card>
-        <uni-card title="爸爸生日" extra="2022.11.25">
-          <text class="uni-body"
-            >这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text
-          >
-        </uni-card>
-        <uni-card title="结婚纪念日" extra="2022.11.23">
-          <text class="uni-body"
-            >这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text
-          >
-        </uni-card>
-        <uni-card title="破壳日" extra="2022.12.25">
-          <text class="uni-body"
-            >这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text
-          >
-        </uni-card>
-      </view>
+          <div class="top">{{ item.data }}</div>
+          <div class="middle">{{ item.time }}</div>
+          <div class="bottom">{{ item.day }}天后</div>
+        </div>
+      </div>
     </view>
   </view>
 </template>
@@ -60,8 +61,61 @@
 export default {
   data() {
     return {
-      id:"静待",
+      name: "",
+      // isShow:false,
+      value: "",
+      type: "",
+      rateValue: 5,
+      AnniversaryResult: [
+        {
+          data: "妈妈的生日",
+          time: "20221109",
+          day: "99",
+        },
+        {
+          data: "爷爷的九十大寿",
+          time: "20221109",
+          day: "99",
+        },
+        {
+          data: "成为前端coder的纪念日",
+          time: "20221109",
+          day: "99",
+        },
+      ],
     };
+  },
+  onLoad() {
+    // 获取用户姓名
+    const data = {
+      userId: uni.getStorageSync("userId"),
+    };
+    uni.$http
+      .get("/child/homepage/get-name", data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === "00000") {
+          console.log("res的返回姓名是：", res.data.data.name);
+          this.name = res.data.data.name;
+          this.value = this.name;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // 获取纪念日
+    uni.$http
+      .get("/child/homepage/all-anniversary", data)
+      .then((res) => {
+        console.log(res);
+        console.log("纪念日列表是:", res.data.data);
+        if(res.data.code === "00000"){
+          this.AnniversaryResult = res.data.data 
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   methods: {
     addDay() {
@@ -75,6 +129,56 @@ export default {
       uni.navigateTo({
         url: "/pages/son/bind/bind",
       });
+    },
+    inputDialogToggle() {
+      this.$refs.inputDialog.open();
+    },
+    dialogInputConfirm(val) {
+      console.log("点击确认后的input框的内容", val);
+      this.value = val;
+      this.name = val;
+      console.log("我要开始发送改名请求啦~");
+      const data = {
+        userId: uni.getStorageSync("userId"),
+        name: this.value,
+      };
+      console.log(this.value);
+      if (this.value === "") {
+        uni.showToast({
+          title: "姓名不能为空",
+          icon: "error",
+          duration: 3000,
+        });
+      } else {
+        uni.$http
+          .post("/child/homepage/change-user-name", data)
+          .then((res) => {
+            if (res.data.code == "00000") {
+              console.log("修改用户名成功");
+              uni.showToast({
+                title: "修改用户名成功",
+                icon: "none",
+                duration: 3000,
+              });
+            } else {
+              console.log("修改用户名失败==200");
+              uni.showToast({
+                title: "修改用户名失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      setTimeout(() => {
+        uni.hideLoading();
+        console.log(val);
+        // 关闭窗口后，恢复默认内容
+        this.$refs.inputDialog.close();
+      }, 2000);
     },
   },
 };
@@ -115,7 +219,7 @@ export default {
   border-bottom: 1px solid #e3e3e3;
   justify-content: space-between;
   padding: 5px 18px;
-  background-color: rgba(255, 255, 255,0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   .bind_text {
     font-size: 16px;
   }
@@ -124,7 +228,7 @@ export default {
   margin-top: 30px;
   display: flex;
   border-bottom: 1px solid #e3e3e3;
-  background-color: rgba(255, 255, 255,0.3);
+  background-color: rgba(255, 255, 255, 0.3);
 
   .id_text {
     font-size: 20px;
@@ -146,8 +250,45 @@ export default {
     border-radius: 8px;
   }
 }
-/deep/ .uni-card{
-  background-color: rgba(255, 255, 255,0.7);
-
+/deep/ .uni-card {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+// 卡片组件
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.infoBox {
+  width: 160px;
+  height: 100px;
+  background-color: #fff;
+  margin: 10px;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  .top {
+    display: block;
+    font-size: 18px;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .middle {
+    font-size: 12px;
+    color: gray;
+  }
+  .bottom {
+    font-size: 16px;
+  }
+  .top,
+  .middle {
+    text-align: right;
+  }
+  .middle,
+  .bottom {
+    padding-top: 5px;
+  }
 }
 </style>

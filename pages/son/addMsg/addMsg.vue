@@ -70,7 +70,8 @@ export default {
       type: "center",
       person: "静待",
       value: "",
-      range: [],
+      range: [
+      ],
       voicePath: "",
       voiceLength: 0,
       recorderManager: {},
@@ -92,6 +93,15 @@ export default {
       self.voicePath = res.tempFilePath;
       self.voiceLength = res.duration;
     });
+    const data1 = {
+      userId: uni.getStorageSync("userId"),
+    };
+    uni.$http.get("/child/outbox/all-video-packet", data1).then((res) => {
+      console.log("这里是获取所有语音包", res);
+      if (res.data.code === "00000") {
+        uni.setStorageSync("videoId", res.data.videoId);
+      }
+    });
   },
   methods: {
     showCard() {
@@ -100,10 +110,7 @@ export default {
     change(e) {
       console.log("e:", e);
       console.log("input框的数据是：", this.data);
-      const data = {
-        userId: uni.getStorageSync("userId"),
-      };
-      uni.$http.get("/child/outbox/all-addressee", data).then((res) => {
+      uni.$http.get("/child/voice-packet/all-parent").then((res) => {
         console.log(res);
         if (res.data.code === "00000") {
           console.log("请求成功啦~", res.data.data);
@@ -169,14 +176,27 @@ export default {
     send() {
       const data = {
         userId: uni.getStorageSync("userId"),
-        parentId: uni.getStorageSync("myparentId"),
-        boxTime: this.timestamp,
-        videoScheduleParamList: [this.data, this.voiceLength],
+        parentId: 5,
+        boxTime: this.timestamp / 1000,
+        videoScheduleParamList: [
+          {
+            videoId: 3,
+            data: this.data,
+            time: this.timestamp / 1000,
+          },  
+        ],
       };
       uni.$http
         .post("/child/outbox/creat-out-box", data)
         .then((res) => {
           console.log(res);
+          if(res.data.code === "00000"){
+             uni.showToast({
+                title: "发件成功",
+                icon: "success",
+                duration: 3000,
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -288,6 +308,8 @@ export default {
     font-size: 18px;
     width: 100px;
     height: 40px;
+    // 控制文本垂直居中
+    line-height: 40px;
     background-color: #fff;
     border-radius: 10px;
     text-align: center;

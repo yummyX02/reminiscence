@@ -3,7 +3,19 @@
     <div class="scan">
       <div class="text">
         <div id="Id">{{ id }}</div>
-        <div id="smalll">编辑</div>
+        <div id="smalll" @click="inputDialogToggle()">编辑</div>
+        <!-- 编辑姓名的输入框 -->
+        <view class="rename">
+          <uni-popup ref="inputDialog" type="dialog">
+            <uni-popup-dialog
+              ref="inputClose"
+              mode="input"
+              title="输入新的姓名"
+              placeholder="请输入新的姓名"
+              @confirm="dialogInputConfirm"
+            ></uni-popup-dialog>
+          </uni-popup>
+        </view>
       </div>
       <div class="picture">
         <image
@@ -17,11 +29,23 @@
     <view class="bindList">
       <div id="list">绑定列表</div>
       <div class="list1" v-for="(item, i) in bindList" :key="i">
-        <div class="left" >
+        <div class="left">
           <div class="person">{{ item.person }}</div>
-          <div class="bianji">编辑</div>
+          <div class="bianji" @click="inputDialogToggle()">编辑</div>
+          <!-- 编辑姓名的输入框 -->
+          <view class="rename">
+            <uni-popup ref="inputDialog" type="dialog">
+              <uni-popup-dialog
+                ref="inputClose"
+                mode="input"
+                title="输入新的姓名"
+                placeholder="请输入新的姓名"
+                @confirm="dialogInputConfirm1"
+              ></uni-popup-dialog>
+            </uni-popup>
+          </view>
         </div>
-        <div class="jiebang">解绑</div>
+        <div class="jiebang" @click="unBind">解绑</div>
       </div>
     </view>
   </view>
@@ -34,6 +58,7 @@ export default {
   data() {
     return {
       id: "静待",
+      value: "",
       bindList: [
         { person: "妈妈" },
         { person: "爸爸" },
@@ -42,13 +67,179 @@ export default {
       ],
     };
   },
+  onLoad() {
+    const data = {
+      userId: uni.getStorageSync("userId"),
+    };
+    // 获取用户姓名
+    uni.$http
+      .get("/child/homepage/get-name", data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === "00000") {
+          console.log("res的返回姓名是：", res.data.data.name);
+          this.id = res.data.data.name;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    uni.$http
+      .get("/child/homepage/all", data)
+      .then((res) => {
+        console.log("获取用户绑定列表:", res);
+        console.log("绑定列表有：", res.data.data);
+        if (res.data.code === "00000") {
+          this.bindList = res.data.data;
+          uni.setStorageSync("beChangeId", res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   methods: {
     scanCode() {
       uni.scanCode({
         success: function (res) {
           console.log("扫码内容:", res.result);
+          const data = {
+            userId: uni.getStorageSync("userId"),
+            key: res.result,
+          };
+          // 发送绑定请求
+          uni.$http
+            .post("/child/homepage/binding", data)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
       });
+    },
+    unBind() {
+      const data = {
+        parentId: uni.getStorageSync("myparentId"),
+        childId: uni.getStorageSync("userId"),
+      };
+
+      uni.$http
+        .post("/child/homepage/unbinding", data)
+        .then((res) => {
+          console.log(res);
+          if (res.data.code === "00000") {
+            uni.showToast({
+              title: "解绑成功",
+              icon: "success",
+              duration: 3000,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    inputDialogToggle() {
+      this.$refs.inputDialog.open();
+    },
+    dialogInputConfirm(val) {
+      console.log("点击确认后的input框的内容", val);
+      this.id = val;
+      this.value = val;
+      console.log("我要开始发送改名请求啦~");
+      console.log("this.id = ", this.id);
+      if (this.value === "") {
+        uni.showToast({
+          title: "姓名不能为空",
+          icon: "error",
+          duration: 3000,
+        });
+      } else {
+        const data1 = {
+          changeId: uni.getStorageSync("userId"),
+          beChangerId: uni.getStorageSync("beChangeId"),
+          name: this.value,
+        };
+        uni.$http
+          .post("/child/homepage/change-user-name", data1)
+          .then((res) => {
+            if (res.data.code == "00000") {
+              console.log("修改绑定人的姓名成功");
+              uni.showToast({
+                title: "修改用户名成功",
+                icon: "none",
+                duration: 3000,
+              });
+            } else {
+              console.log("修改用户名失败==200");
+              uni.showToast({
+                title: "修改用户名失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      setTimeout(() => {
+        uni.hideLoading();
+        console.log(val);
+        // 关闭窗口后，恢复默认内容
+        this.$refs.inputDialog.close();
+      }, 2000);
+        },
+    // 已绑定人的修改姓名
+    dialogInputConfirm1(val) {
+      console.log("点击确认后的input框的内容", val);
+      this.id = val;
+      this.value = val;
+      console.log("我要开始发送改名请求啦~");
+      console.log("this.id = ", this.id);
+      if (this.value === "") {
+        uni.showToast({
+          title: "姓名不能为空",
+          icon: "error",
+          duration: 3000,
+        });
+      } else {
+        const data1 = {
+          changeId: uni.getStorageSync("userId"),
+          beChangerId: uni.getStorageSync("beChangeId"),
+          name: this.value,
+        };
+        uni.$http
+          .post("/child/homepage/change-parent-name", data1)
+          .then((res) => {
+            if (res.data.code == "00000") {
+              console.log("修改用户名成功");
+              uni.showToast({
+                title: "修改用户名成功",
+                icon: "none",
+                duration: 3000,
+              });
+            } else {
+              console.log("修改用户名失败==200");
+              uni.showToast({
+                title: "修改用户名失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+      });
+      }
+      setTimeout(() => {
+        uni.hideLoading();
+        console.log(val);
+        // 关闭窗口后，恢复默认内容
+        this.$refs.inputDialog.close();
+      }, 2000);
     },
   },
 };
@@ -120,6 +311,7 @@ export default {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 10px;
     font-size: 18px;
     background-color: rgba(255, 255, 255, 0.4);

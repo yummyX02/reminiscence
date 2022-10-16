@@ -50,10 +50,9 @@ export default {
         VoiceRecordingResult: [
           {
             data: "吃药",
-            videoUrl:"",
+            videoUrl: "",
             times: "8:00",
             state: "true",
-
           },
         ],
       },
@@ -63,22 +62,25 @@ export default {
     const arr = uni.getStorageSync("myId");
     const i = uni.getStorageSync("index");
     const parentId = arr[i].parentId;
-    const scheduleBoxId = arr[i].scheduleBoxId
-    const chilId = uni.getStorageSync("userId");
-    console.log("parentId是：",parentId);
+    const scheduleBoxId = arr[i].scheduleBoxId;
+    const childId = uni.getStorageSync("userId");
+    console.log("parentId是：", parentId);
 
     let data = {
       parentId,
-      chilId,
-      scheduleBoxId
+      childId,
+      scheduleBoxId,
     };
     uni.$http
       .get("/child/outbox/details", data)
       .then((res) => {
         console.log(res);
-        if(res.data.code === "00000"){
-          this.name = res.data.name;
-          this.VoiceRecordingResult = res.data.VoiceRecordingResult
+        if (res.data.code === "00000") {
+          this.cardInfo.name = res.data.data.name;
+          if (res.data.data.feedBackResultList.length) {
+            this.length = res.data.data.feedBackResultList[0].length;
+          }
+          this.cardInfo.VoiceRecordingResult = res.data.data.voiceRecordingList;
         }
       })
       .catch((err) => {
@@ -141,7 +143,7 @@ export default {
     .left {
       display: flex;
       justify-content: space-around;
-      #icon{
+      #icon {
         padding: 0 3px;
       }
     }
