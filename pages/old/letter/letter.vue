@@ -1,24 +1,28 @@
 <template>
   <view>
     <div class="big">
-      <div class="title">
-        <div class="back" @click="back">
-          <uni-icons type="back" size="45" color="#99979b"></uni-icons
-          ><span style="font-size: 1.4em">返回</span>
+      <div class="setTop">
+        <div class="title">
+          <div class="back" @click="back">
+            <uni-icons type="back" size="45" color="#99979b"></uni-icons
+            ><span style="font-size: 1.4em">返回</span>
+          </div>
+        </div>
+        <div class="top">
+          <div class="name">{{ childName }}:</div>
+          <div class="bofangAll" @click="allPlay">
+            <img
+              src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
+              alt=""
+              style="height: 60px; width: 60px"
+            />
+            <div class="bofangText">一键播放</div>
+          </div>
         </div>
       </div>
-      <div class="top">
-        <div class="name">{{ childName }}:</div>
-        <div class="bofangAll" @click="allPlay">
-          <img
-            src="https://gitee.com/cccat-best/picgo/raw/master/picgo-picture/bofang.png"
-            alt=""
-            style="height: 60px; width: 60px"
-          />
-          <div class="bofangText">一键播放</div>
-        </div>
-      </div>
+
       <div class="list">
+        <div class="setListTop"></div>
         <div class="item" v-for="(item, index) in itemDetail" :key="index">
           <div class="itemLeft">
             <div class="itemLeftTop">
@@ -54,6 +58,7 @@
             />
           </div>
         </div>
+        <div class="setListBottom"></div>
       </div>
       <div class="bottom">
         <div class="bottomBtn bottomLeft" @longtap="saysay" @touchend="saydone">
@@ -318,30 +323,45 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .title {
+  .setTop {
+    position: absolute;
+    background-color: #fff;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     width: 100%;
-    margin-bottom: 10px;
-    .back {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .top {
-    width: 90%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    .name {
-      font-size: 2.8em;
+    .title {
+      width: 100%;
+      margin-bottom: 10px;
+      .back {
+        display: flex;
+        align-items: center;
+      }
     }
-    .bofangAll {
+    .top {
+      width: 90%;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
+      .name {
+        font-size: 2.8em;
+      }
+      .bofangAll {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   }
+
   .list {
     width: 90%;
+    .setListTop {
+      width: 100%;
+      height: 120px;
+    }
     .item {
       width: 100%;
       height: 90px;
@@ -375,10 +395,16 @@ export default {
         margin-bottom: 5px;
       }
     }
+    .setListBottom {
+      width: 100%;
+      height: 140px;
+    }
   }
   .bottom {
     position: absolute;
     background-color: #fff;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
     padding: 5px 10px 0 10px;
     height: 130px;
     bottom: 0;

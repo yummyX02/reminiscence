@@ -44,7 +44,7 @@ export default {
     youngModel() {
       console.log("youngModel");
       setTimeout(() => {
-        uni.redirectTo({
+        uni.reLaunch({
           url: "/pages/son/message/message",
         });
       }, 0);
@@ -52,7 +52,7 @@ export default {
     oldModel() {
       console.log("oldModel");
       setTimeout(() => {
-        uni.redirectTo({
+        uni.reLaunch({
           url: "/pages/old/home/home",
         });
       }, 0);

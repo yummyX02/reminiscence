@@ -280,7 +280,6 @@ export default {
   width: 280px;
   height: 300px;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid black;
   border-radius: 20px;
   .text {
     display: flex;
