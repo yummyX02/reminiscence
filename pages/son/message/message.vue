@@ -36,7 +36,7 @@
           v-for="(item, i) in msgList"
           :key="i"
           :title="item.name"
-          :note="item.note"
+          :note="item.data"
           clickable
           @click="
             gotoMsgDetail();

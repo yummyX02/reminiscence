@@ -5,17 +5,16 @@
         <div id="Id">{{ id }}</div>
         <div id="smalll" @click="inputDialogToggle()">编辑</div>
         <!-- 编辑姓名的输入框 -->
-        <view class="rename">
-          <uni-popup ref="inputDialog" type="dialog">
-            <uni-popup-dialog
-              ref="inputClose"
-              mode="input"
-              title="输入新的姓名"
-              placeholder="请输入新的姓名"
-              @confirm="dialogInputConfirm"
-            ></uni-popup-dialog>
-          </uni-popup>
-        </view>
+        <!-- <view class="rename"> -->
+        <uni-popup ref="userPopup" type="dialog">
+          <uni-popup-dialog
+            mode="input"
+            title="输入新的姓名"
+            placeholder="请输入新的姓名"
+            @confirm="dialogInputConfirm"
+          ></uni-popup-dialog>
+        </uni-popup>
+        <!-- </view> -->
       </div>
       <div class="picture">
         <image
@@ -30,22 +29,21 @@
       <div id="list">绑定列表</div>
       <div class="list1" v-for="(item, i) in bindList" :key="i">
         <div class="left">
-          <div class="person">{{ item.person }}</div>
-          <div class="bianji" @click="inputDialogToggle()">编辑</div>
+          <div class="person">{{ item.name }}</div>
+          <div class="bianji" @click="inputDialogToggle1(item)">编辑</div>
           <!-- 编辑姓名的输入框 -->
-          <view class="rename">
-            <uni-popup ref="inputDialog" type="dialog">
-              <uni-popup-dialog
-                ref="inputClose"
-                mode="input"
-                title="输入新的姓名"
-                placeholder="请输入新的姓名"
-                @confirm="dialogInputConfirm1"
-              ></uni-popup-dialog>
-            </uni-popup>
-          </view>
+          <!-- <view class="rename"> -->
+          <uni-popup :ref="'inputBind' + item.userId" type="dialog">
+            <uni-popup-dialog
+              mode="input"
+              title="输入新的姓名"
+              placeholder="请输入新的姓名"
+              @confirm="dialogInputConfirm1"
+            ></uni-popup-dialog>
+          </uni-popup>
+          <!-- </view> -->
         </div>
-        <div class="jiebang" @click="unBind">解绑</div>
+        <div class="jiebang" @click="unBind(item)">解绑</div>
       </div>
     </view>
   </view>
@@ -59,12 +57,8 @@ export default {
     return {
       id: "静待",
       value: "",
-      bindList: [
-        { person: "妈妈" },
-        { person: "爸爸" },
-        { person: "爷爷" },
-        { person: "奶奶" },
-      ],
+      bindList: [],
+      changeParentNameItem: [],
     };
   },
   onLoad() {
@@ -135,6 +129,22 @@ export default {
               icon: "success",
               duration: 3000,
             });
+            const data = {
+              userId: uni.getStorageSync("userId"),
+            };
+            uni.$http
+              .get("/child/homepage/all", data)
+              .then((res) => {
+                console.log("获取用户绑定列表:", res);
+                console.log("绑定列表有：", res.data.data);
+                if (res.data.code === "00000") {
+                  this.bindList = res.data.data;
+                  uni.setStorageSync("beChangeId", res.data.data);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         })
         .catch((err) => {
@@ -142,7 +152,12 @@ export default {
         });
     },
     inputDialogToggle() {
-      this.$refs.inputDialog.open();
+      this.$refs.userPopup.open();
+    },
+    inputDialogToggle1(item) {
+      this.changeParentNameItem = item;
+      console.log(this.changeParentNameItem);
+      this.$refs[`changeParentNameItem${item.userId}`][0].open();
     },
     dialogInputConfirm(val) {
       console.log("点击确认后的input框的内容", val);
@@ -191,7 +206,7 @@ export default {
         // 关闭窗口后，恢复默认内容
         this.$refs.inputDialog.close();
       }, 2000);
-        },
+    },
     // 已绑定人的修改姓名
     dialogInputConfirm1(val) {
       console.log("点击确认后的input框的内容", val);
@@ -232,7 +247,7 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-      });
+          });
       }
       setTimeout(() => {
         uni.hideLoading();

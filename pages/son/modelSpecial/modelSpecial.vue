@@ -25,9 +25,10 @@
           src="../../../static/tubiaozhizuo-.png"
           @click="gotoFinish()"
         ></image>
-        <div class="text">点击开始</div>
+        <div class="text" v-if="isShow">点击开始</div>
+        <div class="text" v-else @click="gotoFinish()">点击结束</div>
       </div>
-      <div class="right">
+      <div class="right" @click="gotoSelect()">
         <image id="icon" src="../../../static/24gl-nextCircle.png"></image>
         <div class="text">完成</div>
       </div>
@@ -60,13 +61,33 @@ export default {
       this.saysay();
       this.startRecord();
     },
+    gotoSelect() {
+      console.log("我去语音包界面啦~");
+      uni.redirectTo({
+        url: "/pages/son/selectPkg/selectPkg",
+      });
+      // 提交语音包接口
+      const data = {
+        userId: uni.getStorageSync("userId"),
+        data:""
+      };
+      uni.$http.post("/submit/child/voice-packet/submit",data)
+      .then((res)=>{
+        console.log(res);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    },
     gotoFinish() {
       this.saydone();
       this.endRecord();
-
-      uni.navigateTo({
-        url: "/pages/son/finish/finish",
+      uni.showToast({
+        title: "录制结束",
+        icon: "success",
+        duration: 2000,
       });
+      this.isShow = !this.isShow;
     },
     // 录音部分
     saysay() {

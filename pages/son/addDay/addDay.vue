@@ -1,5 +1,13 @@
 <template>
   <view class="father">
+    <div class="navigate">
+      <div class="fanhui">
+        <uni-icons type="back" size="30" @click="fanhui()"></uni-icons>
+      </div>
+      <div class="fasong" @click="send()">
+        <image id="sendIcon" src="../../../static/fasong-3.png"></image>
+      </div>
+    </div>
     <view class="date">
       <text>日期</text>
       <view class="tag1">
@@ -9,7 +17,13 @@
       </view>
     </view>
     <view class="event">
-      <text>事件</text>
+      <text class="text">事件</text>
+      <uni-easyinput
+        v-model="value"
+        :styles="styles"
+        :placeholderStyle="placeholderStyle"
+        placeholder="请输入待做事件"
+      ></uni-easyinput>
     </view>
     <view class="choice">
       <checkbox-group class="select">
@@ -32,53 +46,32 @@
     </view>
     <view class="time">
       <text>提醒时间</text>
-      <div class="tag">
-        <uni-tag :circle="true" text="当天" type="default" />
-        <uni-tag
-          :circle="true"
-          @click="changeDay()"
-          text="1天前"
-          type="default"
-        />
-        <uni-tag
-          :circle="true"
-          @click="changeWeek()"
-          text="1周前"
-          type="default"
-        />
+      <div class="Tag">
+        <div class="today tag" @click="toDay()" tabindex="1">当天</div>
+        <div class="preDay tag" @click="changeDay()" tabindex="2">一天前</div>
+        <div class="preWeek tag" @click="changeWeek()" tabindex="3">一周前</div>
       </div>
     </view>
     <view class="foot">
       <view>
-        <view class="uni-padding-wrap">
-          <view class="uni-title">日期：{{ date }}</view>
+        <view class="uni-padding-wrap" @click="toggle('bottom')">
+          <uni-section
+            :title="'时间：' + datetimesingle"
+            type="line"
+          ></uni-section>
         </view>
-        <picker-view
-          v-if="visible"
-          :indicator-style="indicatorStyle"
-          :value="value"
-          @change="bindChange"
-          class="picker-view"
-        >
-          <picker-view-column>
-            <view class="item" v-for="(item, index) in years" :key="index">{{
-              item
-            }}</view>
-          </picker-view-column>
-          <picker-view-column>
-            <view class="item" v-for="(item, index) in months" :key="index"
-              >{{ item }}时</view
-            >
-          </picker-view-column>
-          <picker-view-column>
-            <view class="item" v-for="(item, index) in days" :key="index"
-              >{{ item }}分</view
-            >
-          </picker-view-column>
-        </picker-view>
+        <!-- 时间选择部分 -->
+        <uni-popup ref="popup" background-color="#fff" @change="change">
+          <view class="example-body">
+            <uni-datetime-picker
+              type="datetime"
+              v-model="datetimesingle"
+              @change="changeLog"
+            />
+          </view>
+        </uni-popup>
       </view>
     </view>
-    
   </view>
 </template>
 
@@ -118,9 +111,19 @@ export default {
       date: "",
       objDate: [],
       // tag的数据
-      a:'',
-      b:'',
-      c:'',
+      a: "",
+      b: "",
+      c: "",
+      // 弹窗
+      type: "center",
+      datetimesingle: "",
+      // 纪念日事件
+      value: "",
+      placeholderStyle: "color:#717172;font-size:14px",
+      styles: {
+        borderColor: "#2979FF",
+        border: "none",
+      },
     };
   },
   onLoad() {
@@ -130,10 +133,10 @@ export default {
     if (month < 10) month = "0" + month;
     var day = new Date().getDate(); //日
     if (day < 10) day = "0" + day;
-    var str = year + '-' + month + '-' + day;
+    var str = year + "-" + month + "-" + day;
     console.log(str);
     this.date = str;
-    this.objDate = str.split('-');
+    this.objDate = str.split("-");
     console.log(this.objDate);
     this.a = this.objDate[0];
     this.b = this.objDate[1];
@@ -147,14 +150,74 @@ export default {
       this.month = this.months[val[1]];
       this.day = this.days[val[2]];
     },
-    changeDay(){
+    toDay() {
+      console.log("选择当天啦~");
+      console.log(this.day);
+    },
+    changeDay() {
       console.log("天数减一啦");
       this.day -= 1;
       console.log(this.day);
     },
-changeWeek(){
-
-}
+    changeWeek() {
+      console.log("一周前提醒啦~");
+      this.day -= 7;
+      console.log(this.day);
+    },
+    // 输入纪念日事件
+    // input(e) {
+    //   console.log("纪念日事件是：", e);
+    // },
+    // 调用选择日期的弹窗
+    change(e) {
+      console.log("当前模式：" + e.type + ",状态：" + e.show);
+    },
+    changeLog(e) {
+      console.log("change事件:", e);
+      // 时间戳转换
+      var time = new Date(e.replace(/-/g, "/"));
+      this.date = Date.parse(time) / 1000;
+      console.log(this.date);
+    },
+    toggle(type) {
+      this.type = type;
+      // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+      this.$refs.popup.open(type);
+    },
+    // 导航部分
+    fanhui() {
+      console.log("我返回个人主页啦");
+      uni.redirectTo({
+        url: "/pages/son/profile/profile",
+      });
+    },
+    send() {
+      console.log("我发送事件啦~");
+      const data = {
+        childId: uni.getStorageSync("userId"),
+        parentId: 5,
+        data: this.value,
+        time: this.date,
+      };
+      uni.$http
+        .post("/child/homepage/set-anniversary", data)
+        .then((res) => {
+          console.log("这是发送新建纪念日请求", res);
+          if (res.data.code === "00000") {
+            uni.showToast({
+              title: "新建纪念日成功",
+              icon: "success",
+              duration: 2000,
+            });
+            uni.switchTab({
+              url: "/pages/son/profile/profile",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
@@ -187,6 +250,11 @@ changeWeek(){
   padding: 5px 18px;
   border-bottom: 1px solid #ffff;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
+  .text {
+    margin-right: 12px;
+  }
 }
 .time {
   padding: 5px 18px;
@@ -216,5 +284,29 @@ changeWeek(){
 }
 .uni-title {
   padding: 5px 18px;
+}
+// 时间标签
+.Tag {
+  display: flex;
+}
+.tag {
+  background-color: gray;
+  color: #ffffff;
+  border-radius: 10px;
+  margin-left: 5px;
+  width: 55px;
+  text-align: center;
+}
+.tag:focus {
+  background-color: #2979ff;
+}
+.navigate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#sendIcon {
+  width: 50px;
+  height: 50px;
 }
 </style>
