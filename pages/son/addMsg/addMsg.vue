@@ -222,7 +222,8 @@ export default {
         if (this.yesVideo) {
           this.endRecord();
           this.$refs.popup.close();
-          if (this.voiceLength < 2) {
+          console.log(this.voiceLength);
+          if (this.voiceLength < 1) {
             uni.showToast({
               icon: "error",
               title: "录音时间太短",
@@ -290,28 +291,28 @@ export default {
     },
     getVoiceList() {
       this.$refs.voiceList.open();
-      // const data1 = {
-      //   userId: uni.getStorageSync("userId"),
-      // };
-      // uni.$http.get("/child/outbox/all-video-packet", data1).then((res) => {
-      //   console.log("这里是获取所有语音包", res);
-      //   if (res.data.code === "00000") {
-      //     console.log("获取所有语音包成功");
-      //     this.voiceList = res.data.data;
-      //   }
-      // });
-      this.voiceList = [
-        {
-          text: "备忘录schedule",
-          value: "3",
-          voicePath: "https://qiniu.tzih.work/1664596860.wav",
-        },
-        {
-          text: "反馈video",
-          value: "4",
-          voicePath: "https://qiniu.tzih.work/1664596860.wav",
-        },
-      ];
+      const data1 = {
+        userId: uni.getStorageSync("userId"),
+      };
+      uni.$http.get("/child/outbox/all-video", data1).then((res) => {
+        console.log("这里是获取所有语音包", res);
+        if (res.data.code === "00000") {
+          console.log("获取所有语音包成功");
+          this.voiceList = res.data.data;
+        }
+      });
+      // this.voiceList = [
+      //   {
+      //     text: "备忘录schedule",
+      //     value: "3",
+      //     voicePath: "https://qiniu.tzih.work/1664596860.wav",
+      //   },
+      //   {
+      //     text: "反馈video",
+      //     value: "4",
+      //     voicePath: "https://qiniu.tzih.work/1664596860.wav",
+      //   },
+      // ];
     },
     add() {
       console.log("add");
