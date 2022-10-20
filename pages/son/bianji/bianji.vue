@@ -5,7 +5,7 @@
       <image id="imge" src="../../../static/shouyinji-2.png"></image>
     </view>
     <view class="remind">
-      <input id="ipt" type="text" placeholder="请输入提醒内容" />
+      <input id="ipt" type="text" placeholder="请输入语音包名字" />
       <text id="txt">最多八个字</text>
     </view>
     <div class="bottom" @click="gotoPkg()">点击提交音频</div>
@@ -22,12 +22,12 @@ export default {
       console.log("我要跳转啦");
       uni.switchTab({
         url: "/pages/son/selectPkg/selectPkg",
-        success(res){
+        success(res) {
           console.log(res);
         },
-        fail(err){
+        fail(err) {
           console.log(err);
-        }
+        },
       });
     },
   },

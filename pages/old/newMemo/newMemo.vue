@@ -60,6 +60,7 @@ import { addSchedule } from "@/uni_modules/vv-schedule";
 export default {
   data() {
     return {
+      yesVideo: false,
       voicePath: "",
       voiceLength: 0,
       recorderManager: {},
@@ -90,40 +91,46 @@ export default {
   },
   methods: {
     async addSchedule() {
-      if (this.voiceLength < 3) {
+      if (!this.yesVideo) {
         uni.showToast({
-          icon: "error",
-          title: "录音时间太短",
+          title: "请先录音",
         });
       } else {
-        await addSchedule({
-          title: this.title,
-          description: "",
-          dtstart: this.timestamp,
-          dtend: this.timestamp,
-        });
-        uni.uploadFile({
-          url: "https://43.142.146.75:38080/parent/memorandum/newly-build", //仅为示例，非真实的接口地址
-          filePath: this.voicePath,
-          name: "file",
-          formData: {
-            length: this.voiceLength,
-            userId: uni.getStorageSync("userId"),
-            data: this.title,
-            time: this.timestamp / 1000,
-          },
-          header: {
-            "content-type": "multipart/form-data",
-            Authorization: uni.getStorageSync("token"),
-          },
-          success: (uploadFileRes) => {
-            console.log("newMemo", JSON.parse(uploadFileRes.data));
-            let data = JSON.parse(uploadFileRes.data);
-            if (data.code == "00000") {
-              uni.showToast({ title: "日程添加成功" });
-            }
-          },
-        });
+        if (this.voiceLength < 3) {
+          uni.showToast({
+            icon: "error",
+            title: "录音时间太短",
+          });
+        } else {
+          await addSchedule({
+            title: this.title,
+            description: "",
+            dtstart: this.timestamp,
+            dtend: this.timestamp,
+          });
+          uni.uploadFile({
+            url: "https://43.142.146.75:38080/parent/memorandum/newly-build", //仅为示例，非真实的接口地址
+            filePath: this.voicePath,
+            name: "file",
+            formData: {
+              length: this.voiceLength,
+              userId: uni.getStorageSync("userId"),
+              data: this.title,
+              time: this.timestamp / 1000,
+            },
+            header: {
+              "content-type": "multipart/form-data",
+              Authorization: uni.getStorageSync("token"),
+            },
+            success: (uploadFileRes) => {
+              console.log("newMemo", JSON.parse(uploadFileRes.data));
+              let data = JSON.parse(uploadFileRes.data);
+              if (data.code == "00000") {
+                uni.showToast({ title: "日程添加成功" });
+              }
+            },
+          });
+        }
       }
     },
     toggle(type) {
@@ -176,19 +183,27 @@ export default {
       console.log("saysay");
       this.toggle("center");
       this.startRecord();
+      this.yesVideo = true;
     },
     saydone() {
       console.log("saydone");
-      this.endRecord();
-      this.$refs.popup.close();
       setTimeout(() => {
-        if (this.voiceLength < 3) {
-          uni.showToast({
-            icon: "error",
-            title: "录音时间太短",
-          });
+        if (this.yesVideo) {
+          this.endRecord();
+          this.$refs.popup.close();
+          if (this.voiceLength < 3) {
+            uni.showToast({
+              icon: "error",
+              title: "录音时间太短",
+            });
+          } else {
+            this.$refs.inputDialogText.open();
+          }
         } else {
-          this.$refs.inputDialogText.open();
+          uni.showToast({
+            icon: "none",
+            title: "长按进行录音",
+          });
         }
       }, 1000);
     },

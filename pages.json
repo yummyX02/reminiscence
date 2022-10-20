@@ -10,14 +10,14 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登陆",
+				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/modelSelect/modelSelect",
 			"style": {
-				"navigationBarTitleText": "模式选择",
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -37,27 +37,6 @@
 		},
 		{
 			"path": "pages/son/message/message",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/modelSpecial/modelSpecial",
-			"style": {
-				"navigationBarTitleText": "拾忆录音棚",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/finish/finish",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/son/bianji/bianji",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
@@ -95,6 +74,27 @@
 			"path": "pages/son/bind/bind",
 			"style": {
 				"navigationBarTitleText": "绑定",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/modelSpecial/modelSpecial",
+			"style": {
+				"navigationBarTitleText": "拾忆录音棚",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/finish/finish",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/son/bianji/bianji",
+			"style": {
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		},
