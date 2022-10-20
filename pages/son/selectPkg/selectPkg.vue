@@ -1,10 +1,33 @@
 <template>
   <view class="father">
     <view class="top">
-      <view class="classical">
+      <view class="classical" @click="toggle('center')">
         <div class="top">经典模式</div>
         <div class="bottom">只需下载语音包，即可快速生成语音</div>
       </view>
+      <uni-popup ref="selectPop" type="dialog">
+        <uni-list-item title="语音包列表" />
+        <scroll-view
+          :scroll-top="scrollTop"
+          scroll-y="true"
+          class="scroll-Y"
+          
+        >
+          <div class="infoBox" v-for="(item, index) in videoList" :key="index">
+            <uni-list border-full>
+              <uni-list-item1
+                title="{{item.data}}"
+                note="{{item.length}}s"
+                rightText="下载"
+                @click="download"
+              />
+            </uni-list>
+
+            <!-- <div class="top">{{ item.data }}</div> -->
+            <!-- <div class="middle">{{ item.videoId }}</div> -->
+          </div>
+        </scroll-view>
+      </uni-popup>
       <view class="special" @click="gotoSpecial()">
         <div class="top">定制模式</div>
         <div class="bottom">录入专属语句，快速生成语音包</div>
@@ -24,6 +47,49 @@ export default {
   data() {
     return {
       rateValue: 5,
+      // 滚动条
+      scrollTop: 0,
+      old: {
+        scrollTop: 0,
+      },
+      type: "center",
+      videoList: [
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+        {
+          data: "吃饭",
+          videoId: 5,
+          length: 10,
+        },
+      ],
     };
   },
   methods: {
@@ -32,6 +98,33 @@ export default {
         url: "/pages/son/modelSpecial/modelSpecial",
       });
     },
+    change(e) {
+      console.log("当前模式：" + e.type + ",状态：" + e.show);
+    },
+    toggle(type) {
+      this.type = type;
+      // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+      this.$refs.selectPop.open(type);
+      // 获取语音包列表
+      const data = {
+        userId: uni.getStorageSync("userId"),
+      };
+      uni.$http
+        .get("/child/outbox/all-video-packet", data)
+        .then((res) => {
+          console.log("获取语音包列表啦~", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    download(){
+      uni.showToast({
+              title: "下载成功",
+              icon: "success",
+              duration: 2000,
+            });
+    }
   },
 };
 </script>
@@ -74,16 +167,16 @@ export default {
   text-align: center;
   vertical-align: middle;
   margin-top: 20px;
-  .top{
+  .top {
     font-size: 22px;
   }
-  .bottom{
+  .bottom {
     font-size: 12px;
   }
 }
-.classical{
+.classical {
   margin-top: 20px;
-   padding: 5px 18px;
+  padding: 5px 18px;
   width: 82vw;
   height: 10vh;
   margin-left: 15px;
@@ -92,11 +185,30 @@ export default {
   box-shadow: 10px 5px 5px #c1c1c1;
   text-align: center;
   vertical-align: middle;
-  .top{
+  .top {
     font-size: 22px;
   }
-  .bottom{
+  .bottom {
     font-size: 12px;
   }
+}
+.infoBox {
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  height: 30px;
+  width: 240px;
+  background-color: #fff;
+  uni-list-item {
+    width: 220px;
+    border: 1px solid #c7c8c9;
+  }
+}
+// 滚动条
+.scroll-Y {
+  height: 300rpx;
 }
 </style>

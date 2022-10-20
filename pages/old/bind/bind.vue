@@ -48,7 +48,6 @@
                 size="small"
                 inverted="true"
                 type="warning"
-                -
                 :circle="true"
                 cal
               ></uni-tag>
