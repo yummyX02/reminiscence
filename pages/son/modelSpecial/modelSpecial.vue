@@ -4,7 +4,7 @@
       <image id="imge" src="../../../static/shouyinji-2.png"></image>
     </view>
     <view class="remind">
-      <input id="ipt" type="text" placeholder="请输入提醒内容" />
+      <input id="ipt" type="text" :value="value" placeholder="请输入提醒内容" />
       <text id="txt">最多八个字</text>
     </view>
     <view class="bottom">
@@ -40,6 +40,7 @@
 export default {
   data() {
     return {
+      value: "",
       isShow: true,
     };
   },
@@ -62,22 +63,26 @@ export default {
       this.startRecord();
     },
     gotoSelect() {
-      console.log("我去语音包界面啦~");
-      uni.redirectTo({
-        url: "/pages/son/selectPkg/selectPkg",
-      });
+      console.log("输入的value值是:",this.value);
       // 提交语音包接口
       const data = {
         userId: uni.getStorageSync("userId"),
-        data:""
+        data: "111",
       };
-      uni.$http.post("/submit/child/voice-packet/submit",data)
-      .then((res)=>{
-        console.log(res);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+      uni.$http
+        .post("/submit/child/voice-packet/submit", data)
+        .then((res) => {
+          console.log(res);
+          if (res.data.code === "00000") {
+            console.log("我去语音包界面啦~");
+            uni.redirectTo({
+              url: "/pages/son/selectPkg/selectPkg",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     gotoFinish() {
       this.saydone();
