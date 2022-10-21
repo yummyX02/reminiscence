@@ -7,24 +7,12 @@
       </view>
       <uni-popup ref="selectPop" type="dialog">
         <uni-list-item title="语音包列表" />
-        <scroll-view
-          :scroll-top="scrollTop"
-          scroll-y="true"
-          class="scroll-Y"
-          
-        >
+        <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
           <div class="infoBox" v-for="(item, index) in videoList" :key="index">
-            <uni-list border-full>
-              <uni-list-item1
-                title="{{item.data}}"
-                note="{{item.length}}s"
-                rightText="下载"
-                @click="download"
-              />
-            </uni-list>
-
-            <!-- <div class="top">{{ item.data }}</div> -->
-            <!-- <div class="middle">{{ item.videoId }}</div> -->
+            <div class="list">
+              <div class="textTop">{{ item.data }}</div>
+              <div class="textMiddle">{{ item.length }}s</div>
+            </div>
           </div>
         </scroll-view>
       </uni-popup>
@@ -53,43 +41,7 @@ export default {
         scrollTop: 0,
       },
       type: "center",
-      videoList: [
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-        {
-          data: "吃饭",
-          videoId: 5,
-          length: 10,
-        },
-      ],
+      videoList: [],
     };
   },
   methods: {
@@ -113,18 +65,19 @@ export default {
         .get("/child/outbox/all-video-packet", data)
         .then((res) => {
           console.log("获取语音包列表啦~", res);
+          this.videoList = res.data.data
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    download(){
+    download() {
       uni.showToast({
-              title: "下载成功",
-              icon: "success",
-              duration: 2000,
-            });
-    }
+        title: "下载成功",
+        icon: "success",
+        duration: 2000,
+      });
+    },
   },
 };
 </script>
@@ -193,22 +146,26 @@ export default {
   }
 }
 .infoBox {
-  border-radius: 10rpx;
+  border-radius: 10rpx; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 8px;
   justify-content: center;
-  padding: 30px;
-  height: 30px;
+  height: 50px;
   width: 240px;
   background-color: #fff;
-  uni-list-item {
-    width: 220px;
-    border: 1px solid #c7c8c9;
+  .list {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
   }
 }
 // 滚动条
 .scroll-Y {
-  height: 300rpx;
+  height: 500rpx;
+}
+uni-list-item{
+  font-size: 20px;
 }
 </style>
