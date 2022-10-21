@@ -119,35 +119,49 @@ export default {
       this.isShow = !this.isShow;
     },
     gotoSelect() {
-      let formData = {
-        userId: uni.getStorageSync("userId"),
-        data: this.title,
-        length: this.voiceLength,
-      };
-      console.log(formData);
-      // 提交语音包接口
-      uni.uploadFile({
-        url: "https://43.142.146.75:38080/child/voice-packet/submit", //仅为示例，非真实的接口地址
-        filePath: this.voicePath,
-        name: "file",
-        formData: formData,
-        header: {
-          "content-type": "multipart/form-data",
-          Authorization: uni.getStorageSync("token"),
-        },
-        success: (uploadFileRes) => {
-          console.log("upload", JSON.parse(uploadFileRes.data));
-          let data = JSON.parse(uploadFileRes.data);
-          if (data.code == "00000") {
-            uni.showToast({ title: "定制语音包成功" });
-            setTimeout(() => {
-              uni.reLaunch({
-                url: "/pages/son/selectPkg/selectPkg",
-              });
-            });
-          }
-        },
-      });
+      if (this.title == "") {
+        uni.showToast({
+          title: "请输入提醒内容",
+          icon: "error",
+          duration: 1500,
+        });
+      } else if (this.voiceLength == 0) {
+        uni.showToast({
+          title: "请先进行录音",
+          icon: "error",
+          duration: 1500,
+        });
+      } else {
+        let formData = {
+          userId: uni.getStorageSync("userId"),
+          data: this.title,
+          length: this.voiceLength,
+        };
+        console.log(formData);
+        // 提交语音包接口
+        uni.uploadFile({
+          url: "https://43.142.146.75:38080/child/voice-packet/submit", //仅为示例，非真实的接口地址
+          filePath: this.voicePath,
+          name: "file",
+          formData: formData,
+          header: {
+            "content-type": "multipart/form-data",
+            Authorization: uni.getStorageSync("token"),
+          },
+          success: (uploadFileRes) => {
+            console.log("upload", JSON.parse(uploadFileRes.data));
+            let data = JSON.parse(uploadFileRes.data);
+            if (data.code == "00000") {
+              uni.showToast({ title: "定制语音包成功" });
+              setTimeout(() => {
+                uni.reLaunch({
+                  url: "/pages/son/selectPkg/selectPkg",
+                });
+              }, 2000);
+            }
+          },
+        });
+      }
     },
   },
 };

@@ -1,5 +1,17 @@
 <template>
   <view class="father">
+    <view>
+          <!-- 提示窗示例 -->
+          <uni-popup ref="inputDialog" type="dialog">
+            <uni-popup-dialog
+              ref="inputClose"
+              mode="input"
+              title="请输入查询的姓名"
+              placeholder="请输入内容"
+              @confirm="dialogInputConfirm"
+            ></uni-popup-dialog>
+          </uni-popup>
+        </view>
     <view class="title">
       <div class="text">
         <uni-section
@@ -14,18 +26,7 @@
           size="30"
           @click="inputDialogToggle"
         ></uni-icons>
-        <view>
-          <!-- 提示窗示例 -->
-          <uni-popup ref="inputDialog" type="dialog">
-            <uni-popup-dialog
-              ref="inputClose"
-              mode="input"
-              title="请输入查询的姓名"
-              placeholder="请输入内容"
-              @confirm="dialogInputConfirm"
-            ></uni-popup-dialog>
-          </uni-popup>
-        </view>
+        
         <uni-icons type="plus" size="30" @click="gotoAdd()"></uni-icons>
       </div>
     </view>
@@ -61,6 +62,7 @@
 export default {
   data() {
     return {
+      value: "",
       index: "",
       no: "",
       msgList: [],
@@ -106,17 +108,34 @@ export default {
       this.$refs.inputDialog.open();
     },
     dialogInputConfirm(val) {
+      console.log("this.value:", this.value);
       uni.showLoading({
         title: "正在搜索...",
       });
 
       setTimeout(() => {
         uni.hideLoading();
-        console.log(val);
+        console.log("val:",val);
         this.value = val;
+        console.log("this.value:",this.value);
+        const data = {
+          keyWord:this.value
+        }
+        uni.$http.get("/child/outbox/all",data)
+        .then((res)=>{
+          console.log(res);
+          if (res.data.code === "00000") {
+          this.msgList = res.data.data;
+          uni.setStorageSync("myId", res.data.data);
+          console.log("发件箱的数组是:", uni.getStorageSync("myId"));
+        }
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
         // 关闭窗口后，恢复默认内容
         this.$refs.inputDialog.close();
-      }, 3000);
+      }, 2000);
     },
     gotoAdd() {
       console.log("我去新增发件啦~");
@@ -178,4 +197,5 @@ export default {
 /deep/ .uni-list-item {
   background: transparent; /*完全透明*/
 }
+</style>
 </style>

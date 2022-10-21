@@ -5,7 +5,22 @@
         <div class="top">经典模式</div>
         <div class="bottom">只需下载语音包，即可快速生成语音</div>
       </view>
-      <uni-popup ref="selectPop" type="dialog">
+      <uni-popup ref="voiceList" type="dialog">
+        <view class="popup-date">
+          <span style="margin-bottom: 20px; font-size: 1.1em"
+            >请选择语音包</span
+          >
+          <uni-data-select
+            v-model="voiceSec"
+            :localdata="voiceList"
+            @change="voiceChange"
+            :clear="false"
+            placeholder="请选择语音包"
+          >
+          </uni-data-select>
+        </view>
+      </uni-popup>
+      <!-- <uni-popup ref="selectPop" type="dialog">
         <uni-list-item title="语音包列表" />
         <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
           <div class="infoBox" v-for="(item, index) in videoList" :key="index">
@@ -15,7 +30,7 @@
             </div>
           </div>
         </scroll-view>
-      </uni-popup>
+      </uni-popup> -->
       <view class="special" @click="gotoSpecial()">
         <div class="top">定制模式</div>
         <div class="bottom">录入专属语句，快速生成语音包</div>
@@ -34,6 +49,10 @@
 export default {
   data() {
     return {
+      voicePath: "",
+      data: "",
+      voiceSec: "",
+      voiceList: "",
       rateValue: 5,
       // 滚动条
       scrollTop: 0,
@@ -56,7 +75,7 @@ export default {
     toggle(type) {
       this.type = type;
       // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
-      this.$refs.selectPop.open(type);
+      this.$refs.voiceList.open(type);
       // 获取语音包列表
       const data = {
         userId: uni.getStorageSync("userId"),
@@ -65,7 +84,7 @@ export default {
         .get("/child/outbox/all-video-packet", data)
         .then((res) => {
           console.log("获取语音包列表啦~", res);
-          this.videoList = res.data.data;
+          this.voiceList = res.data.data;
         })
         .catch((err) => {
           console.log(err);
@@ -77,6 +96,32 @@ export default {
         icon: "success",
         duration: 2000,
       });
+    },
+    getVoiceList() {
+      this.$refs.voiceList.open();
+      const data1 = {
+        userId: uni.getStorageSync("userId"),
+      };
+      uni.$http.get("/child/outbox/all-video", data1).then((res) => {
+        console.log("这里是获取所有语音包", res);
+        if (res.data.code === "00000") {
+          console.log("获取所有语音包成功");
+          this.voiceList = res.data.data;
+        }
+      });
+    },
+    voiceChange(e) {
+      console.log("voiceList框的数据是:", e);
+      if (e) {
+        this.videoId = e;
+        let newVoice = this.voiceList.find((item) => item.value == e);
+        this.data = newVoice.text;
+        this.voicePath = newVoice.voicePath;
+        console.log(newVoice);
+        setTimeout(() => {
+          this.$refs.voiceList.close();
+        }, 800);
+      }
     },
   },
 };
@@ -167,5 +212,17 @@ export default {
 }
 uni-list-item {
   font-size: 20px;
+}
+// 语音包
+.popup-date {
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  height: 70px;
+  width: 240px;
+  background-color: #fff;
 }
 </style>
