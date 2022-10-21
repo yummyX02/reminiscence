@@ -96,7 +96,7 @@ export default {
           title: "请先录音",
         });
       } else {
-        if (this.voiceLength < 3) {
+        if (this.voiceLength < 2) {
           uni.showToast({
             icon: "error",
             title: "录音时间太短",
@@ -191,7 +191,7 @@ export default {
         if (this.yesVideo) {
           this.endRecord();
           this.$refs.popup.close();
-          if (this.voiceLength < 3) {
+          if (this.voiceLength < 2) {
             uni.showToast({
               icon: "error",
               title: "录音时间太短",
