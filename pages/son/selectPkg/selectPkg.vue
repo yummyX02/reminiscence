@@ -75,7 +75,10 @@ export default {
         .get("/child/outbox/all-video-packet", data)
         .then((res) => {
           console.log("获取语音包列表啦~", res);
-          this.voiceList = res.data.data;
+          if (res.data.code === "00000") {
+            console.log("获取所有语音包成功");
+            this.voiceList = res.data.data;
+          }
         })
         .catch((err) => {
           console.log(err);
