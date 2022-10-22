@@ -83,9 +83,10 @@ export default {
       .then((res) => {
         console.log("获取用户绑定列表:", res);
         console.log("绑定列表有：", res.data.data);
+        console.log("父母Id：", res.data.data[0].userId);
         if (res.data.code === "00000") {
           this.bindList = res.data.data;
-          uni.setStorageSync("beChangeId", res.data.data);
+          uni.setStorageSync("beChangeId", res.data.data[0].userId);
         }
       })
       .catch((err) => {
@@ -115,7 +116,7 @@ export default {
     },
     unBind() {
       const data = {
-        parentId: uni.getStorageSync("myparentId"),
+        parentId: uni.getStorageSync("beChangeId"),
         childId: uni.getStorageSync("userId"),
       };
 
@@ -156,8 +157,8 @@ export default {
     },
     inputDialogToggle1(item) {
       this.changeParentNameItem = item;
-      console.log(this.changeParentNameItem);
-      this.$refs[`changeParentNameItem${item.userId}`][0].open();
+      console.log("this.changeParentNameItem =", this.changeParentNameItem);
+      this.$refs[`inputBind${item.userId}`][0].open();
     },
     dialogInputConfirm(val) {
       console.log("点击确认后的input框的内容", val);
@@ -173,61 +174,12 @@ export default {
         });
       } else {
         const data1 = {
-          changeId: uni.getStorageSync("userId"),
-          beChangerId: uni.getStorageSync("beChangeId"),
+          userId: uni.getStorageSync("userId"),
+          // beChangerId: uni.getStorageSync("beChangeId"),
           name: this.value,
         };
         uni.$http
           .post("/child/homepage/change-user-name", data1)
-          .then((res) => {
-            if (res.data.code == "00000") {
-              console.log("修改绑定人的姓名成功");
-              uni.showToast({
-                title: "修改用户名成功",
-                icon: "none",
-                duration: 3000,
-              });
-            } else {
-              console.log("修改用户名失败==200");
-              uni.showToast({
-                title: "修改用户名失败",
-                icon: "error",
-                duration: 3000,
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-      setTimeout(() => {
-        uni.hideLoading();
-        console.log(val);
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close();
-      }, 2000);
-    },
-    // 已绑定人的修改姓名
-    dialogInputConfirm1(val) {
-      console.log("点击确认后的input框的内容", val);
-      this.id = val;
-      this.value = val;
-      console.log("我要开始发送改名请求啦~");
-      console.log("this.id = ", this.id);
-      if (this.value === "") {
-        uni.showToast({
-          title: "姓名不能为空",
-          icon: "error",
-          duration: 3000,
-        });
-      } else {
-        const data1 = {
-          changeId: uni.getStorageSync("userId"),
-          beChangerId: uni.getStorageSync("beChangeId"),
-          name: this.value,
-        };
-        uni.$http
-          .post("/child/homepage/change-parent-name", data1)
           .then((res) => {
             if (res.data.code == "00000") {
               console.log("修改用户名成功");
@@ -249,12 +201,65 @@ export default {
             console.log(err);
           });
       }
-      setTimeout(() => {
-        uni.hideLoading();
-        console.log(val);
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close();
-      }, 2000);
+    },
+    // 已绑定人的修改姓名
+    dialogInputConfirm1(val) {
+      console.log("点击确认后的input框的内容", val);
+      this.value = val;
+      console.log("我要开始发送改名请求啦~");
+      console.log("this.id = ", this.id);
+      if (this.value === "") {
+        uni.showToast({
+          title: "姓名不能为空",
+          icon: "error",
+          duration: 3000,
+        });
+      } else {
+        const data1 = {
+          changerId: uni.getStorageSync("userId"),
+          beChangerId: uni.getStorageSync("beChangeId"),
+          name: this.value,
+        };
+        uni.$http
+          .post("/child/homepage/change-parent-name", data1)
+          .then((res) => {
+            if (res.data.code == "00000") {
+              console.log("修改备注成功");
+              uni.showToast({
+                title: "修改备注成功",
+                icon: "none",
+                duration: 3000,
+              });
+              console.log("开始更新绑定列表");
+              const data = {
+                userId: uni.getStorageSync("userId"),
+              };
+              uni.$http
+                .get("/child/homepage/all", data)
+                .then((res) => {
+                  console.log("获取用户绑定列表:", res);
+                  console.log("绑定列表有：", res.data.data);
+                  if (res.data.code === "00000") {
+                    this.bindList = res.data.data;
+                    uni.setStorageSync("beChangeId", res.data.data);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              console.log("修改备注失败==200");
+              uni.showToast({
+                title: "修改备注失败",
+                icon: "error",
+                duration: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };

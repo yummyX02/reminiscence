@@ -64,6 +64,7 @@ export default {
     return {
       value: "",
       index: "",
+      i:'',
       no: "",
       msgList: [],
       extraIcon1: "static/bofang.png",
@@ -87,22 +88,8 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-    // const i = this.index;
-    // uni.setStorageSync("myparentId", res.data.data[i].parentId);
-    // uni.setStorageSync("myscheduleBoxId", res.data.data[i].scheduleBoxId);
-    // console.log(uni.getStorageSync("myparentId"));
-    // console.log(uni.getStorageSync("myscheduleBoxId"));
   },
   methods: {
-    // function find(){
-    //   var arr = [];
-    // for (var i = 0; i < list.length; i++) {
-    //   if (list[i].indexOf(keyWord) >= 0) {
-    //     arr.push(list[i]);
-    //   }
-    // }
-    // return arr;
-    // }
     // 打开搜索框
     inputDialogToggle() {
       this.$refs.inputDialog.open();

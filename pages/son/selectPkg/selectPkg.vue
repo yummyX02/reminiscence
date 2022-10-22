@@ -20,17 +20,6 @@
           </uni-data-select>
         </view>
       </uni-popup>
-      <!-- <uni-popup ref="selectPop" type="dialog">
-        <uni-list-item title="语音包列表" />
-        <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
-          <div class="infoBox" v-for="(item, index) in videoList" :key="index">
-            <div class="list">
-              <div class="textTop">{{ item.data }}</div>
-              <div class="textMiddle">{{ item.length }}s</div>
-            </div>
-          </div>
-        </scroll-view>
-      </uni-popup> -->
       <view class="special" @click="gotoSpecial()">
         <div class="top">定制模式</div>
         <div class="bottom">录入专属语句，快速生成语音包</div>
@@ -38,7 +27,9 @@
     </view>
     <view class="foot">
       <view class="star">
-        ————————<uni-rate v-model="rateValue" @change="onChange" />————————
+        <div class="len"></div>
+        <uni-rate v-model="rateValue" @change="onChange" />
+        <div class="len"></div>
       </view>
       <text class="txt">已有语音包</text>
     </view>
@@ -151,6 +142,13 @@ export default {
   display: flex;
   padding-bottom: 20px;
   padding-top: 30px;
+  justify-content: center;
+  align-items: center;
+  .len {
+    width: 50%;
+    height: 1px;
+    border-top: solid #acc0d8 1px;
+  }
 }
 .txt {
   font-size: 20px;

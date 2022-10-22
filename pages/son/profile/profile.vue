@@ -32,7 +32,9 @@
     </view>
     <view class="middle">
       <view class="star">
-        ————————<uni-rate v-model="rateValue" @change="onChange" />————————
+        <div class="len"></div>
+        <uni-rate v-model="rateValue" @change="onChange" />
+        <div class="len"></div>
       </view>
     </view>
     <view class="foot">
@@ -47,7 +49,7 @@
           class="infoBox"
           v-for="(item, index) in AnniversaryResult"
           :key="index"
-          >
+        >
           <div class="top">{{ item.data }}</div>
           <div class="middle">{{ item.time }}</div>
           <div class="bottom">{{ item.day }}天后</div>
@@ -109,8 +111,8 @@ export default {
       .then((res) => {
         console.log(res);
         console.log("纪念日列表是:", res.data.data);
-        if(res.data.code === "00000"){
-          this.AnniversaryResult = res.data.data 
+        if (res.data.code === "00000") {
+          this.AnniversaryResult = res.data.data;
         }
       })
       .catch((err) => {
@@ -189,6 +191,13 @@ export default {
   display: flex;
   padding-bottom: 20px;
   padding-top: 30px;
+  justify-content: center;
+  align-items: center;
+  .len {
+    width: 50%;
+    height: 1px;
+    border-top: solid #acc0d8 1px;
+  }
 }
 .memory {
   padding-left: 18px;

@@ -2,7 +2,7 @@
   <view class="father">
     <div class="navigate">
       <div class="fanhui">
-        <uni-icons type="back" size="30" @click="fanhui()"></uni-icons>
+        <!-- <uni-icons type="back" size="30" @click="fanhui()"></uni-icons> -->
       </div>
       <div class="fasong" @click="send()">
         <image id="sendIcon" src="../../../static/fasong-3.png"></image>
@@ -187,7 +187,7 @@ export default {
     // 导航部分
     fanhui() {
       console.log("我返回个人主页啦");
-      uni.redirectTo({
+      uni.switchTab({
         url: "/pages/son/profile/profile",
       });
     },
