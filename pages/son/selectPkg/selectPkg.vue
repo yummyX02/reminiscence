@@ -40,8 +40,8 @@
 export default {
   data() {
     return {
-      voicePath:"",
-      data:"",
+      voicePath: "",
+      data: "",
       voiceSec: "",
       voiceList: "",
       rateValue: 5,
@@ -76,7 +76,6 @@ export default {
         .then((res) => {
           console.log("获取语音包列表啦~", res);
           this.voiceList = res.data.data;
-
         })
         .catch((err) => {
           console.log(err);

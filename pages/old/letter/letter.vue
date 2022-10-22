@@ -246,8 +246,8 @@ export default {
         (self.getLength.endTimestamp - self.getLength.startTimestamp) / 1000 + 1
       );
 
-      if (self.voiceLength < 3) {
-        console.log("<3");
+      if (self.voiceLength < 2) {
+        console.log("<2");
         uni.showToast({
           icon: "error",
           title: "录音时间太短",
