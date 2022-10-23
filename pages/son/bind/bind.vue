@@ -157,7 +157,7 @@ export default {
     inputDialogToggle1(item) {
       this.changeParentNameItem = item;
       console.log(this.changeParentNameItem);
-      this.$refs[`changeParentNameItem${item.userId}`][0].open();
+      this.$refs[`inputBind${item.userId}`][0].open();
     },
     dialogInputConfirm(val) {
       console.log("点击确认后的input框的内容", val);
@@ -173,15 +173,14 @@ export default {
         });
       } else {
         const data1 = {
-          changeId: uni.getStorageSync("userId"),
-          beChangerId: uni.getStorageSync("beChangeId"),
+          userId: uni.getStorageSync("userId"),
           name: this.value,
         };
         uni.$http
           .post("/child/homepage/change-user-name", data1)
           .then((res) => {
             if (res.data.code == "00000") {
-              console.log("修改绑定人的姓名成功");
+              console.log("修改用户名成功");
               uni.showToast({
                 title: "修改用户名成功",
                 icon: "none",
@@ -200,12 +199,6 @@ export default {
             console.log(err);
           });
       }
-      setTimeout(() => {
-        uni.hideLoading();
-        console.log(val);
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close();
-      }, 2000);
     },
     // 已绑定人的修改姓名
     dialogInputConfirm1(val) {
@@ -230,16 +223,16 @@ export default {
           .post("/child/homepage/change-parent-name", data1)
           .then((res) => {
             if (res.data.code == "00000") {
-              console.log("修改用户名成功");
+              console.log("修改备注成功");
               uni.showToast({
-                title: "修改用户名成功",
+                title: "修改备注成功",
                 icon: "none",
                 duration: 3000,
               });
             } else {
-              console.log("修改用户名失败==200");
+              console.log("修改备注失败==200");
               uni.showToast({
-                title: "修改用户名失败",
+                title: "修改备注失败",
                 icon: "error",
                 duration: 3000,
               });
@@ -249,12 +242,6 @@ export default {
             console.log(err);
           });
       }
-      setTimeout(() => {
-        uni.hideLoading();
-        console.log(val);
-        // 关闭窗口后，恢复默认内容
-        this.$refs.inputDialog.close();
-      }, 2000);
     },
   },
 };

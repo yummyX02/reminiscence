@@ -54,10 +54,19 @@
         <div class="voiceList bottomChild" @click="getVoiceList">
           <image id="icon" src="../../../static/voicelist.png"></image>
         </div>
-        <div class="luyin bottomChild" @longtap="saysay" @touchend="saydone">
+        <div
+          class="luyin bottomChild"
+          @longtap="saysay"
+          @touchend="saydone"
+          style="margin-left: 11px"
+        >
           <image id="icon" src="../../../static/huatong-2.png"></image>
         </div>
-        <div class="alerk bottomChild" @click="setcolckPop">
+        <div
+          class="alerk bottomChild"
+          @click="setcolckPop"
+          style="margin-left: 6px; margin-bottom: 3px"
+        >
           <image id="icon" src="../../../static/clerk.png"></image>
         </div>
       </div>
@@ -86,11 +95,7 @@
       </div>
     </div>
     <div class="addIcon">
-      <image
-        id="addmsg"
-        src="../../../static/xinjian01.png"
-        @click="add"
-      ></image>
+      <image id="addmsg" src="../../../static/add.png" @click="add"></image>
     </div>
     <div class="lastBottom">
       <view class="perText" style="margin-right: 20px" @click="playVoice">
@@ -489,18 +494,12 @@ export default {
     }
   }
   .bottom {
-    // position: absolute;
-    // right: 10px;
-    // bottom: 10px;
     box-sizing: border-box;
     width: 100%;
     padding-right: 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .bottomChild {
-      margin-left: 8px;
-    }
   }
 }
 .popup-date {
