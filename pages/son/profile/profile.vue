@@ -45,22 +45,22 @@
         </div>
       </view>
       <div class="card">
-        <scroll-view
+        <!-- <scroll-view
           enable-flex="true"
           :scroll-top="scrollTop"
           scroll-y="true"
           class="scroll-Y"
+        > -->
+        <div
+          class="infoBox"
+          v-for="(item, index) in AnniversaryResult"
+          :key="index"
         >
-          <div
-            class="infoBox"
-            v-for="(item, index) in AnniversaryResult"
-            :key="index"
-          >
-            <div class="top">{{ item.data }}</div>
-            <div class="middle">{{ item.time }}</div>
-            <div class="bottom">{{ item.day }}天后</div>
-          </div>
-        </scroll-view>
+          <div class="top">{{ item.data }}</div>
+          <div class="middle">{{ item.time }}</div>
+          <div class="bottom">{{ item.day }}天后</div>
+        </div>
+        <!-- </scroll-view> -->
       </div>
     </view>
   </view>
@@ -264,20 +264,19 @@ export default {
 /deep/ .uni-card {
   background-color: rgba(255, 255, 255, 0.7);
 }
-// 卡片组件
-// .card {
-//   display: flex;
-//   flex-wrap: wrap;
-//   flex-direction: row;
-// }
+
 .infoBox {
   width: 160px;
   height: 100px;
   background-color: #fff;
-  margin: 10px;
+  padding-right: 10px;
+  padding-left: 15px;
   border-radius: 20px;
-  padding: 20px;
+  // padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   .top {
     display: block;
     font-size: 18px;
@@ -293,7 +292,6 @@ export default {
   .bottom {
     font-size: 16px;
   }
-  .top,
   .middle {
     text-align: right;
   }
@@ -301,6 +299,15 @@ export default {
   .bottom {
     padding-top: 5px;
   }
+}
+// 卡片组件
+.card {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  overflow: scroll;
 }
 .scroll-Y {
   height: 400px;

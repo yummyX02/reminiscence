@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { addSchedule } from "@/uni_modules/vv-schedule";
 export default {
   data: function () {
     const date = new Date();
@@ -204,6 +205,12 @@ export default {
         .then((res) => {
           console.log("这是发送新建纪念日请求", res);
           if (res.data.code === "00000") {
+            addSchedule({
+              title: this.value,
+              description: "",
+              dtstart: this.timestamp * 1000,
+              dtend: this.timestamp * 1000,
+            });
             uni.showToast({
               title: "新建纪念日成功",
               icon: "success",
