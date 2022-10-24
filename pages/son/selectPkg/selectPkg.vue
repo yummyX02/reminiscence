@@ -1,26 +1,24 @@
 <template>
   <view class="father">
-    <view class="top">
-      <view class="classical" @click="getVoiceList">
-        <div class="top">经典模式</div>
-        <div class="bottom">只需下载语音包，即可快速生成语音</div>
+    <uni-popup ref="voiceList" type="dialog">
+      <view class="popup-date">
+        <span style="margin-bottom: 20px; font-size: 1.1em">请选择语音包</span>
+        <uni-data-select
+          v-model="voiceSec"
+          :localdata="voiceList"
+          @change="voiceChange"
+          :clear="false"
+          placeholder="请选择语音包"
+        >
+        </uni-data-select>
       </view>
-      <uni-popup ref="voiceList" type="dialog">
-        <view class="popup-date">
-          <span style="margin-bottom: 20px; font-size: 1.1em"
-            >请选择语音包</span
-          >
-          <uni-data-select
-            v-model="voiceSec"
-            :localdata="voiceList"
-            @change="voiceChange"
-            :clear="false"
-            placeholder="请选择语音包"
-          >
-          </uni-data-select>
-        </view>
-      </uni-popup>
-      <view class="special" @click="gotoSpecial()">
+    </uni-popup>
+    <view class="top">
+      <view class="classical topChild" @click="getVoiceList">
+        <div class="top">快捷模式</div>
+        <div class="bottom">查看预览已有语音包</div>
+      </view>
+      <view class="special topChild" @click="gotoSpecial()">
         <div class="top">定制模式</div>
         <div class="bottom">录入专属语句，快速生成语音包</div>
       </view>
@@ -31,7 +29,6 @@
         <uni-rate v-model="rateValue" @change="onChange" />
         <div class="len"></div>
       </view>
-      <text class="txt">已有语音包</text>
     </view>
   </view>
 </template>
@@ -124,7 +121,6 @@ export default {
 <style lang="scss" scoped>
 .father {
   overflow: hidden;
-  position: relative;
   height: 100vh;
   // background-color: wheat;
   background-image: linear-gradient(
@@ -134,6 +130,11 @@ export default {
     url("../../../static/login.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
 }
 .foot {
   display: flex;
@@ -155,37 +156,29 @@ export default {
 .txt {
   font-size: 20px;
 }
-.special {
-  padding: 5px 18px;
-  width: 82vw;
-  height: 10vh;
-  margin-left: 15px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
-  box-shadow: 10px 5px 5px #c1c1c1;
-  text-align: center;
-  vertical-align: middle;
-  margin-top: 20px;
-  .top {
-    font-size: 22px;
-  }
-  .bottom {
-    font-size: 12px;
-  }
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.classical {
-  margin-top: 20px;
+.topChild {
   padding: 5px 18px;
-  width: 82vw;
-  height: 10vh;
+  width: 70vw;
+  height: 20vh;
   margin-left: 15px;
   background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 10px 5px 5px #c1c1c1;
   text-align: center;
   vertical-align: middle;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
   .top {
-    font-size: 22px;
+    font-size: 30px;
+    margin-bottom: 20px;
   }
   .bottom {
     font-size: 12px;
