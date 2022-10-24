@@ -33,7 +33,7 @@
     <view class="middle">
       <view class="star">
         <div class="len"></div>
-        <uni-rate v-model="rateValue" @change="onChange" />
+        <uni-rate v-model="rateValue" />
         <div class="len"></div>
       </view>
     </view>
@@ -45,15 +45,22 @@
         </div>
       </view>
       <div class="card">
-        <div
-          class="infoBox"
-          v-for="(item, index) in AnniversaryResult"
-          :key="index"
+        <scroll-view
+          enable-flex="true"
+          :scroll-top="scrollTop"
+          scroll-y="true"
+          class="scroll-Y"
         >
-          <div class="top">{{ item.data }}</div>
-          <div class="middle">{{ item.time }}</div>
-          <div class="bottom">{{ item.day }}天后</div>
-        </div>
+          <div
+            class="infoBox"
+            v-for="(item, index) in AnniversaryResult"
+            :key="index"
+          >
+            <div class="top">{{ item.data }}</div>
+            <div class="middle">{{ item.time }}</div>
+            <div class="bottom">{{ item.day }}天后</div>
+          </div>
+        </scroll-view>
       </div>
     </view>
   </view>
@@ -63,28 +70,13 @@
 export default {
   data() {
     return {
+      scrollTop: 10,
       name: "",
       // isShow:false,
       value: "",
       type: "",
       rateValue: 5,
-      AnniversaryResult: [
-        {
-          data: "妈妈的生日",
-          time: "20221109",
-          day: "99",
-        },
-        {
-          data: "爷爷的九十大寿",
-          time: "20221109",
-          day: "99",
-        },
-        {
-          data: "成为前端coder的纪念日",
-          time: "20221109",
-          day: "99",
-        },
-      ],
+      AnniversaryResult: [],
     };
   },
   onLoad() {
@@ -120,6 +112,16 @@ export default {
       });
   },
   methods: {
+    upper: function (e) {
+      console.log(e);
+    },
+    lower: function (e) {
+      console.log(e);
+    },
+    scroll: function (e) {
+      console.log(e);
+      this.old.scrollTop = e.detail.scrollTop;
+    },
     addDay() {
       console.log("我去加纪念日啦~");
       uni.navigateTo({
@@ -263,11 +265,11 @@ export default {
   background-color: rgba(255, 255, 255, 0.7);
 }
 // 卡片组件
-.card {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
+// .card {
+//   display: flex;
+//   flex-wrap: wrap;
+//   flex-direction: row;
+// }
 .infoBox {
   width: 160px;
   height: 100px;
@@ -299,5 +301,13 @@ export default {
   .bottom {
     padding-top: 5px;
   }
+}
+.scroll-Y {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>

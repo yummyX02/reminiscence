@@ -209,9 +209,30 @@ export default {
               icon: "success",
               duration: 2000,
             });
-            uni.switchTab({
+            uni.reLaunch({
               url: "/pages/son/profile/profile",
+              // success: (res) => {
+              //   let page = getCurrentPages().pop();
+              //   if (page == undefined || page == null) return;
+              //   page.onLoad();
+              // },
             });
+            const data = {
+              userId: uni.getStorageSync("userId"),
+            };
+            // 获取纪念日
+            uni.$http
+              .get("/child/homepage/all-anniversary", data)
+              .then((res) => {
+                console.log(res);
+                console.log("纪念日列表是:", res.data.data);
+                if (res.data.code === "00000") {
+                  this.AnniversaryResult = res.data.data;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         })
         .catch((err) => {

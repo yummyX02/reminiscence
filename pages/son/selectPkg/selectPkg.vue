@@ -1,7 +1,7 @@
 <template>
   <view class="father">
     <view class="top">
-      <view class="classical" @click="toggle('center')">
+      <view class="classical" @click="getVoiceList">
         <div class="top">经典模式</div>
         <div class="bottom">只需下载语音包，即可快速生成语音</div>
       </view>

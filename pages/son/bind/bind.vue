@@ -1,6 +1,7 @@
 <template>
   <view class="father">
-    <div class="scan">
+    <div class="box">
+      <div class="scan">
       <div class="text">
         <div id="Id">{{ id }}</div>
         <div id="smalll" @click="inputDialogToggle()">编辑</div>
@@ -24,6 +25,7 @@
         ></image>
       </div>
       <div class="tips">扫一扫长辈的二维码，绑定我的拾忆</div>
+    </div>
     </div>
     <view class="bindList">
       <div id="list">绑定列表</div>
@@ -266,6 +268,12 @@ export default {
 </script>
 
 <style lang="scss">
+.box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 45px;
+}
 .father {
   overflow: hidden;
   position: relative;
@@ -281,7 +289,7 @@ export default {
   opacity: 0.7;
 }
 .scan {
-  margin: 45px;
+  // margin: 45px;
   width: 280px;
   height: 300px;
   background-color: rgba(255, 255, 255, 0.9);
