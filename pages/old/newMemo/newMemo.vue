@@ -79,14 +79,13 @@ export default {
     this.innerAudioContext = uni.createInnerAudioContext();
     this.innerAudioContext.autoplay = true;
     console.log("uni.getRecorderManager()", uni.getRecorderManager());
-    let self = this;
-    this.recorderManager.onStop(function (res) {
+    this.recorderManager.onStop((res) => {
       console.log("recorder stop" + JSON.stringify(res));
-      self.getLength.endTimestamp = Date.now();
-      self.voicePath = res.tempFilePath;
-      self.voiceLength = parseInt(
-        (self.getLength.endTimestamp - self.getLength.startTimestamp) / 1000 + 1
-      );
+      this.voicePath = res.tempFilePath;
+      this.voiceLength =
+        parseInt(
+          (this.getLength.endTimestamp - this.getLength.startTimestamp) / 1000
+        ) + 1;
     });
   },
   methods: {
@@ -186,11 +185,13 @@ export default {
       this.yesVideo = true;
     },
     saydone() {
+      this.getLength.endTimestamp = Date.now();
       console.log("saydone");
+      this.endRecord();
       setTimeout(() => {
         if (this.yesVideo) {
-          this.endRecord();
           this.$refs.popup.close();
+          console.log(this.voiceLength);
           if (this.voiceLength < 2) {
             uni.showToast({
               icon: "error",

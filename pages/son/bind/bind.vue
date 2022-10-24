@@ -177,7 +177,6 @@ export default {
       } else {
         const data1 = {
           userId: uni.getStorageSync("userId"),
-          // beChangerId: uni.getStorageSync("beChangeId"),
           name: this.value,
         };
         uni.$http
@@ -186,14 +185,14 @@ export default {
             if (res.data.code == "00000") {
               console.log("修改用户名成功");
               uni.showToast({
-                title: "修改用户名成功",
+                title: "修改备注成功",
                 icon: "none",
                 duration: 3000,
               });
             } else {
-              console.log("修改用户名失败==200");
+              console.log("修改备注失败==200");
               uni.showToast({
-                title: "修改用户名失败",
+                title: "修改备注失败",
                 icon: "error",
                 duration: 3000,
               });
