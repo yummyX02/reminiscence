@@ -22,14 +22,14 @@
           </div>
         </div>
       </div>
-      <div class="radio">
+      <div class="radio" @click="bofangZj">
         <image id="png" src="../../../static/bofang.png"></image>
       </div>
     </div>
     <view class="response">
       <text>反馈:</text>
-      <view class="yuyin" @tap="playVoice">
-        <div class="left">
+      <view class="yuyin">
+        <div class="left" @click="playVoiceFk">
           <image class="yuyinIcon" src="../../../static/bofang.png"></image>
         </div>
         <div class="right">
@@ -41,14 +41,12 @@
 </template>
 
 <script>
-const recorderManager = uni.getRecorderManager();
-const innerAudioContext = uni.createInnerAudioContext();
-
-innerAudioContext.autoplay = true;
 export default {
   data() {
     return {
-      length: "",
+      innerAudioContext: {},
+      length: "0",
+      voiceUrlFk: "",
       cardInfo: {
         name: "妈妈",
         VoiceRecordingResult: [
@@ -59,7 +57,6 @@ export default {
             state: "true",
           },
         ],
-        voiceUrl: "https://qiniu.tzih.work/1664596860.wav",
       },
     };
   },
@@ -84,7 +81,7 @@ export default {
           this.cardInfo.name = res.data.data.name;
           if (res.data.data.feedBackResultList.length) {
             this.length = res.data.data.feedBackResultList[0].length;
-            this.voiceUrl = res.data.data.feedBackResultList[0].videoUrl;
+            this.voiceUrlFk = res.data.data.feedBackResultList[0].videoUrl;
           }
           this.cardInfo.VoiceRecordingResult = res.data.data.voiceRecordingList;
         }
@@ -92,21 +89,22 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+
     // 播放语音
-    let self = this;
-    recorderManager.onStop(function (res) {
-      console.log("recorder stop" + JSON.stringify(res));
-      self.voicePath = res.tempFilePath;
-    });
+    this.innerAudioContext = uni.createInnerAudioContext();
+    this.innerAudioContext.autoplay = true;
   },
   methods: {
-    playVoice() {
-      console.log("播放录音");
-
-      if (this.voicePath) {
-        innerAudioContext.src = this.voicePath;
-        innerAudioContext.play();
-      }
+    playVoice(e) {
+      console.log("播放录音:", e);
+      this.innerAudioContext.src = e;
+      this.innerAudioContext.play();
+    },
+    bofangZj() {
+      this.playVoice(this.cardInfo.VoiceRecordingResult[0].videoUrl);
+    },
+    playVoiceFk() {
+      this.playVoice(this.voiceUrlFk);
     },
   },
 };
